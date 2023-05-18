@@ -14,10 +14,6 @@ const profileEdit = {
   getters: {
   },
   mutations: {
-    // SAVE_NEW_PROFILE(state, userinfo){
-    //   console.log(state)
-    //   console.log(userinfo)
-    // }
   },
   actions: {
     editProfile(context, params){

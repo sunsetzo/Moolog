@@ -5,7 +5,7 @@
     <div class="profile">
       <div>
         <img :src="image" alt="profile imge">
-        <input ref="image" type="file" value="사진 선택" @change="uploadImg">
+        <input accept="image/*" ref="inputImage" type="file" value="사진 선택" @change="uploadImg">
       </div>
       <div>
         <label for="EditNickname">NickName : </label>
@@ -71,8 +71,10 @@ export default {
       this.$store.dispatch('getUser')
     },
     uploadImg(){
-      const image = this.$refs['image'].files[0]
+      const image = this.$refs['inputImage'].files[0]
+      console.log(image)
       const imageURL = URL.createObjectURL(image)
+      console.log(imageURL)
       this.image = imageURL
     },
     editProfile(nickname, user_image){

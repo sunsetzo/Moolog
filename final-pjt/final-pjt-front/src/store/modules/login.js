@@ -25,7 +25,7 @@ const LogIn = {
   mutations: {
     SAVE_TOKEN(state, token){
       state.token = token
-      // router.push({name:'home'})
+      
     },
     SET_AUTH_ERROR:(state, error)=>{
       state.authError = error
@@ -50,6 +50,7 @@ const LogIn = {
       .then(res=>{
         console.log('signup res')
         context.commit('SAVE_TOKEN', res.data.key)
+        router.push({name:'home'})
       })
       .catch(err=>{
         console.log(err, 'SIGNUP ERR')

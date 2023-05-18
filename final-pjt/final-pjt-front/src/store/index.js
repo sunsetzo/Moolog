@@ -40,6 +40,7 @@ export default new Vuex.Store({
       .then((res) => {
         console.log('getUser success')
         console.log(res)
+        console.log(res.data.user_image)
         context.commit('GET_USER', res.data)
       })
       .catch((err)=>{

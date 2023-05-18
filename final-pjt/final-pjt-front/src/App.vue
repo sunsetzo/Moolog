@@ -13,15 +13,19 @@
         <!-- 버튼 눌렀을 때
         1) 로그인이 안되어 있으면 로그인 모달창
         2) 로그인이 되어 있으면 프로필 수정 및 로그아웃 버튼-->
-        <div class="dropdown">
-          <button data-bs-toggle="modal" data-bs-target="#exampleModal">임시 프로필 이미지 버튼</button>
-          <div v-if="isLogin">
-            <ul class="dropdwon-menu">
+        <div v-if="isLogin" >
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              임시 프로필 이미지
+            </button>
+            <ul class="dropdown-menu">
               <li><router-link :to="{name : 'profileedit'}">ProfileEdit</router-link></li>
-              <li @click="logOut">Logout</li>
+              <li><a class="dropdown-item" @click="logOut">Logout</a></li>
             </ul>
           </div>
+        </div>
           <div v-else>
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal">임시 프로필 이미지 버튼</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -49,7 +53,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </header>
     <router-view/>
