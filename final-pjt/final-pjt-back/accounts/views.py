@@ -1,10 +1,11 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, CustomLoginSerializer
 
 from django.shortcuts import render, redirect
 
+from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
@@ -18,6 +19,21 @@ class CustomUserCreate(generics.CreateAPIView):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
+
+
+
+
+class LoginView(views.APIView):
+    def post(self, request):
+        serializer = CustomLoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        # 로그인 후 수행할 작업
+
+        return Response({"message": "로그인 성공"})
+
+
+
 
 
 # 회원 탈퇴 및 정보수정
