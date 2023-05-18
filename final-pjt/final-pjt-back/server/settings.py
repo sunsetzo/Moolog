@@ -199,6 +199,7 @@ ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+    'PASSWORD_CHANGE_SERIALIZER': 'accounts.serializers.CustomPasswordChangeSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
@@ -207,3 +208,5 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+OLD_PASSWORD_FIELD_ENABLED = True
