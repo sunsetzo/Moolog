@@ -7,7 +7,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user = super().save_user(request, user, form, False)
 
         nickname = data.get("nickname")
+        user_image = data.get('user_image')
         if nickname:
             user.nickname = nickname
+        if user_image:
+            user.image = user_image
         user.save()
         return user

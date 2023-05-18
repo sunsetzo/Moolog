@@ -197,6 +197,10 @@ AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
 
 
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+}
+
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
