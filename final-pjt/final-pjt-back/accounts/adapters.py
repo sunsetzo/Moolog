@@ -11,6 +11,6 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if nickname:
             user.nickname = nickname
         if user_image:
-            user.image = user_image
+            user.user_image = user_image
         user.save()
         return user

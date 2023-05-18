@@ -19,9 +19,25 @@ Authorization: 'Token 토큰값'
 1. post
 new_password1 / new_password2/ old_password 필드 받아야함.
 
-현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일
 
-dabff96d0761117e9df5074ca9789031ec945591
+http://127.0.0.1:8000/accounts/signout/
+1. post
+Authorization: 'Token 토큰값'
+
+현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일 발송, 회원탈퇴
+
+구현 해야하는 것 -> 좋아요 기능, 소셜 로그인
+
+++ 회원 가입 시에도 이메일 인증을 해야 가입할 수 있도록 할 수 있음. 
+   → 비밀번호 초기화할 때 이메일 인증을 사용하니 이 기능도 추가하면 좋을 것 같음. 
+     하지만 지금은 모루겄따...일단은 이메일 인증없이도 가입할 수 있게 바꿔놨음.
+     시간 남으면 해보게따...!
+
+
+
+rye : d749e75cb8704e64d6dc4592c7cff0b990669316
+temp : e5e4a0e7188d49c1579e274667f90d41145cbdd8
+zeze: a3c62d3ae6301dbdb0c47efdf61f5f2c1fe613c0
 
 구글 계정
 email : Moolog0107@gmail.com

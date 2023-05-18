@@ -5,6 +5,11 @@ from dj_rest_auth.serializers import UserDetailsSerializer, PasswordChangeSerial
 
 User = get_user_model()
 
+class CustomUserSerializer():
+    class Meta:
+        model = User
+        fields = '__all__'
+
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(max_length=20)
 
@@ -25,8 +30,8 @@ class CustomRegisterSerializer(RegisterSerializer):
     
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):
-    nickname = serializers.CharField(max_length=20)
-    user_image = serializers.CharField(max_length=500)
+    nickname = serializers.CharField(max_length=20, required=False)
+    user_image = serializers.ImageField(required=False)
     class Meta(UserDetailsSerializer.Meta):
         model = User
         fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image')
@@ -40,8 +45,11 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
 
     def validate_nickname(self, value):
         user_model = self.Meta.model
-        if user_model.objects.filter(nickname=value).exists():
-            raise serializers.ValidationError("사용 중인 닉네임 입니다. 다른 닉네임을 입력해주세요.")
+        # 현재 요청을 보낸 유저
+        user = self.context['request'].user
+        # 해당 닉네임이 존재하고 그 닉네임이 회원 정보 수정을 요청한 유저의 닉네임이 아닐 경우 에러 발생
+        if user_model.objects.exclude(id=user.id).filter(nickname=value).exists():
+            raise serializers.ValidationError("다른 유저가 사용 중인 닉네임 입니다. 다른 닉네임을 입력해주세요.")
         return value
     
 

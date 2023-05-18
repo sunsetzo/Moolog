@@ -8,39 +8,38 @@ from django.shortcuts import render, redirect
 from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework import status
 
 from django.views.decorators.http import require_POST, require_safe, require_http_methods
-# from .forms import CustomUserCreationForm, CustomUserChangeForm
+
+
+from .serializers import CustomUserSerializer
+
 User = get_user_model()
 
-
-@require_http_methods(['POST'])
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def signout(request):
     request.user.delete()
     auth_logout(request)
-    return redirect('articles:index')
-
-# def profile(request, username):
-#     User = get_user_model()
-#     person = User.objects.get(username=username)
-#     context = {
-#         'person': person,
-#     }
-#     return render(request, 'accounts/profile.html', context)
+    context = {
+        'detail' : '회원탈퇴가 완료되었습니다.'
+    }
+    return Response(context,status=status.HTTP_204_NO_CONTENT)
 
 
-# 팔로우/ 되는지 확인해야 함!
-# @require_POST
+
+# 수정해야함.....
+@api_view(['POST'])
 # @permission_classes([IsAuthenticated])
-# def follow(request, user_pk):
-#     User = get_user_model()
-#     person = User.objects.get(pk=user_pk)
-#     if person != request.user:
-#         if person.followers.filter(pk=request.user.pk).exists():
-#             person.followers.remove(request.user)
-#         else:
-#             person.followers.add(request.user)
-#     serializer = CustomUserSerializer(User)
-#     return Response(serializer.data, status=status.HTTP_200_OK)
+def follow(request, user_pk):
+    User = get_user_model()
+    person = User.objects.get(pk=user_pk)
+    if person != request.user:
+        if person.followers.filter(pk=request.user.pk).exists():
+            person.followers.remove(request.user)
+        else:
+            person.followers.add(request.user)
+    serializer = CustomUserSerializer(person)
+    return Response(serializer.data, status=status.HTTP_200_OK)

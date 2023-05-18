@@ -208,7 +208,6 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -216,5 +215,16 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'Moolog0107@gmail.com'
 EMAIL_HOST_PASSWORD = 'oxuatzupsjogjmhj'
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Moolog@gmail.com'
+
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+# ACCOUNT_EMAIL_REQUIRED = True
+# 회원 가입 시 이메일 인증이 필수적으로 이루어지게 함.
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+# 이메일 인증 이후 vue에서 이동할 주소 설정
+# EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/app/'
+# ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_SUBJECT_PREFIX ="Moolog"
 
 OLD_PASSWORD_FIELD_ENABLED = True
