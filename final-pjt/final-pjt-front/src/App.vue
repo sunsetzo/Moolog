@@ -36,6 +36,10 @@
                     <label for="loginPW">PW : </label>
                     <input type="password" id="password" v-model="password">
                   </div>
+                  <!-- 계정 연동 로그인 -->
+                  <!-- <div>
+                    <div @click="GoogleLogin">구글 연동</div>
+                  </div> -->
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="logIn">LogIn</button>
@@ -59,7 +63,6 @@ export default {
     return{
       username : null,
       password : null,
-      showModal : true,
     }
   },
   computed : {
@@ -83,7 +86,7 @@ export default {
     },
     logOut(){
       this.$store.dispatch('logOut')
-      this.$router.push('HomeView')
+      this.$router.push('home')
     }
   }
 }

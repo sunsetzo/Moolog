@@ -1,13 +1,19 @@
 import axios from 'axios'
 import router from '@/router'
+import createPersistedState from 'vuex-persistedstate'
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
 const LogIn = {
+  plugins:[
+    createPersistedState()
+  ],
   state: {
     token : null,
     authError : null,
     isAuthError : false,
+    userInfo : null,
   },
   getters: {
     isLogin(state){
@@ -19,7 +25,7 @@ const LogIn = {
   mutations: {
     SAVE_TOKEN(state, token){
       state.token = token
-      router.push({name:'HomeView'})
+      // router.push({name:'home'})
     },
     SET_AUTH_ERROR:(state, error)=>{
       state.authError = error
@@ -27,7 +33,7 @@ const LogIn = {
     },
     DELETE_TOKEN(state){
       state.token=null
-      router.push({name:'HomeView'})
+      router.push({name:'home'})
     }
   },
   actions: {
@@ -64,7 +70,7 @@ const LogIn = {
         context.commit('SAVE_TOKEN', res.data.key)
       })
       .catch((err)=>{
-        console.log(err, 'LOGINERR')
+        console.log(err, 'LOGIN ERR')
         context.commit('SET_AUTH_ERROR', err.response.data)
       })
     },
