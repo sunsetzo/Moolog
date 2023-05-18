@@ -26,8 +26,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):
     nickname = serializers.CharField(max_length=20)
-    user_image = serializers.ImageField
-
+    user_image = serializers.CharField(max_length=500)
     class Meta(UserDetailsSerializer.Meta):
         model = User
         fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image')

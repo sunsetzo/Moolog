@@ -19,12 +19,15 @@ from django.urls import path, include
 # Media, imagefield 사용
 from django.conf import settings
 from django.conf.urls.static import static
+from dj_rest_auth.views import PasswordResetConfirmView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/v1/', include('articles.urls')),
     path('accounts/', include('dj_rest_auth.urls')),
-    path('accounts/signup/', include('dj_rest_auth.registration.urls'))
-    # path('accounts/', include('accounts.urls')),
-    # path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('accounts/signup/', include('dj_rest_auth.registration.urls')),
+    path("password-reset/confirm/<uidb64>/<token>/",
+       PasswordResetConfirmView.as_view(),
+       name='password_reset_confirm'),
+    path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

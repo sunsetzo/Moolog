@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
-from .serializers import CustomUserSerializer, CustomLoginSerializer
+from django.contrib.auth import logout as auth_logout
 
 from django.shortcuts import render, redirect
 
@@ -16,12 +16,11 @@ from django.views.decorators.http import require_POST, require_safe, require_htt
 User = get_user_model()
 
 
-# 회원 탈퇴 및 정보수정
-# @require_http_methods(['POST'])
-# def delete(request):
-#     request.user.delete()
-#     auth_logout(request)
-#     return redirect('articles:index')
+@require_http_methods(['POST'])
+def signout(request):
+    request.user.delete()
+    auth_logout(request)
+    return redirect('articles:index')
 
 # def profile(request, username):
 #     User = get_user_model()
