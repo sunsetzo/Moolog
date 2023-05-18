@@ -1,0 +1,29 @@
+http://127.0.0.1:8000/accounts/user/ 
+Authorization: 'Token 토큰값'
+1. get -> user 정보 조회
+{
+    "pk": 1,
+    "username": "hyetamong_1",
+    "email": "rye@gmail.com",
+    "first_name": "cho",
+    "last_name": "jjin",
+    "nickname": "조랭이",
+    "user_image": null
+}
+2. put -> user 정보 수정
+위에서 반환되는 json key값들 중 변경하고 싶은 값만 넣어서 변경 가능. 
+전체 key 다 넣지 않아도 됨.
+
+http://127.0.0.1:8000/accounts/password/change/
+Authorization: 'Token 토큰값'
+1. post
+new_password1 / new_password2/ old_password 필드 받아야함.
+
+현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일
+
+dabff96d0761117e9df5074ca9789031ec945591
+
+구글 계정
+email : Moolog0107@gmail.com
+password: ssafy1234!
+앱비밀번호 : oxuatzupsjogjmhj
