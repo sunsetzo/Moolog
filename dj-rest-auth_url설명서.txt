@@ -24,9 +24,25 @@ http://127.0.0.1:8000/accounts/signout/
 1. post
 Authorization: 'Token 토큰값'
 
-현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일 발송, 회원탈퇴
+http://127.0.0.1:8000/accounts/follow/<int:user_pk>/
 
-구현 해야하는 것 -> 좋아요 기능, 소셜 로그인
+프로필 계정 유저와 팔로우 기능을 요청한 유저가 같을 경우 400에러 발생
+
+1. post
+토큰값은 프로필 계정 유저의 토큰값이 아닌 현재 로그인한 유저의 토큰 값
+Authorization: 'Token 토큰값'
+
+팔로우 : 1
+언팔로우 : 0
+
+http://127.0.0.1:8000/accounts/profile_image/
+1. put
+Authorization: 'Token 토큰값'
+
+
+현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일 발송, 회원탈퇴, 팔로우
+
+구현 해야하는 것 -> 소셜 로그인
 
 ++ 회원 가입 시에도 이메일 인증을 해야 가입할 수 있도록 할 수 있음. 
    → 비밀번호 초기화할 때 이메일 인증을 사용하니 이 기능도 추가하면 좋을 것 같음. 
@@ -35,9 +51,9 @@ Authorization: 'Token 토큰값'
 
 
 
-rye : d749e75cb8704e64d6dc4592c7cff0b990669316
-temp : e5e4a0e7188d49c1579e274667f90d41145cbdd8
-zeze: a3c62d3ae6301dbdb0c47efdf61f5f2c1fe613c0
+rye : 5ad269d9ede55de5171e026a99bc0c0f61fe3d3d
+temp : 6d6a41fff01be8d41e3f150299e1a4c5f0eaa3e3
+zeze: ba06d3ea82138bd9003d3fa83ec8514ab936df89
 
 구글 계정
 email : Moolog0107@gmail.com
