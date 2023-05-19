@@ -16,7 +16,7 @@ class Movie(models.Model):
     vote_count = models.IntegerField()
     overview = models.TextField()
     poster_path = models.CharField(max_length=500)
-    backdrop_path = models.CharField(max_length=500)
+    backdrop_path = models.CharField(max_length=500, blank=True, null=True)
     genres = models.ManyToManyField(Genre)
 
     # 기능 구현용 fields

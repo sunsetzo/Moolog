@@ -39,18 +39,18 @@ class CustomRegisterSerializer(RegisterSerializer):
 class CustomUserDetailsSerializer(UserDetailsSerializer):
     nickname = serializers.CharField(max_length=20, required=False)
     user_image = serializers.ImageField(required=False)
-    
 
-    # followings = UserSerializer(read_only=True)
-    # followings_count = serializers.IntegerField(source=followings, read_only=True)
-    # followers = UserSerializer(read_only=True)
-    # followers_count = serializers.IntegerField(source=followers, read_only=True)
-    
+
+    followings = serializers.ManyRelatedField(child_relation=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()), source='followings.all', read_only=True)
+    followings_count = serializers.IntegerField(source='followings.count', read_only=True)
+    followers = serializers.ManyRelatedField(child_relation=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()), source='followers.all', read_only=True)
+    followers_count = serializers.IntegerField(source='followers.count', read_only=True)    
+
 
     class Meta(UserDetailsSerializer.Meta):
         model = User
-        fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image', )
-        read_only_fields = ('username','email',)
+        fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image', 'followings', 'followings_count', 'followers', 'followers_count')
+        read_only_fields = ('username','email')
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
