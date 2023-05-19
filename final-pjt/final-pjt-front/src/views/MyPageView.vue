@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ProFile from '@/components/MyPage/ProFile.vue';
+import ProFile from '@/components/MyPage/Profile.vue';
 import MyLoveMovie from '@/components/MyPage/MyLoveMovie.vue';
 import MyReviewMovie from '@/components/MyPage/MyReviewMovie.vue';
 import FollowingMovieReview from '@/components/MyPage/FollowingMovieReview.vue';

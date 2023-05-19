@@ -46,9 +46,11 @@
                     
                   </div>
                   <!-- 계정 연동 로그인 -->
-                  <!-- <div>
-                    <div @click="GoogleLogin">구글 연동</div>
-                  </div> -->
+                  <div>
+                    <!-- <google-signin-button class="google-login-button" :params="params" :onSuccess="GoogleLoginSuccess" :onFailure="GoogleLoginFailure">
+                      <img src="" alt="google login"></google-signin-button> -->
+                    <GoogleLogin/>
+                  </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="logIn">LogIn</button>
@@ -85,14 +87,24 @@
 </template>
 
 <script>
+import axios from 'axios'
+import GoogleLogin from './components/Social/GoogleLogin.vue'
+
 export default {
   name:'App',
+  components: {
+    GoogleLogin
+  },
   data(){
     return{
       username : null,
       password : null,
       loginuser : '',
       email : null,
+      // google-login
+      params:{
+        client_id : process.env.VUE_APP_GOOGLE_CLIENT_ID,
+      }
     }
   },
   created(){
@@ -143,6 +155,15 @@ export default {
     getUser(){
       this.$store.dispatch('getUser')
     },
+    // google
+    onSuccess(googleUser){
+      console.log(googleUser)
+      axios({
+        methods:'post',
+        url : 'http://127.0.0.1:8000/accounts/allauth/google/login/'
+        
+      })
+    }
   }
 }
 </script>
