@@ -12,7 +12,7 @@ from rest_framework.decorators import permission_classes, api_view
 from rest_framework import status
 
 
-from .serializers import UserSerializer
+# from .serializers import UserSerializer
 
 User = get_user_model()
 
