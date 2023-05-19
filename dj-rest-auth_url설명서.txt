@@ -40,9 +40,8 @@ http://127.0.0.1:8000/accounts/profile_image/
 Authorization: 'Token 토큰값'
 
 
-현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일 발송, 회원탈퇴, 팔로우
+현재 완료된 기능 -> 회원가입, 로그인, 로그아웃, 회원정보 수정, 비밀번호 변경, 비밀번호 잊어버렸을 때 비밀번호 reset-> 이메일 발송, 회원탈퇴, 팔로우, 소셜 로그인
 
-구현 해야하는 것 -> 소셜 로그인
 
 ++ 회원 가입 시에도 이메일 인증을 해야 가입할 수 있도록 할 수 있음. 
    → 비밀번호 초기화할 때 이메일 인증을 사용하니 이 기능도 추가하면 좋을 것 같음. 
@@ -51,9 +50,13 @@ Authorization: 'Token 토큰값'
 
 
 
-rye : 5ad269d9ede55de5171e026a99bc0c0f61fe3d3d
+rye : 300b5c38b525f131d299aaf9c3fb42430ea96b7a
 temp : 6d6a41fff01be8d41e3f150299e1a4c5f0eaa3e3
 zeze: ba06d3ea82138bd9003d3fa83ec8514ab936df89
+
+구글 OAuth 
+client_id : 128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com
+client_password: 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
 
 구글 계정
 email : Moolog0107@gmail.com

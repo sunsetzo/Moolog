@@ -5,10 +5,17 @@ from dj_rest_auth.serializers import UserDetailsSerializer, PasswordChangeSerial
 
 User = get_user_model()
 
-class CustomUserSerializer():
-    class Meta:
-        model = User
-        fields = '__all__'
+# class UserSerializer(serializers.ModelSerializer):
+
+    # followings = serializers.SerializerMethodField()
+
+    # def get_followings(self, obj):
+    #     # 현재 유저의 followings를 가져와서 유저의 pk값만 리스트로 반환
+    #     return UserSerializer(obj.followings.all(), many=True).data
+
+    # class Meta:
+    #     model = User
+    #     fields = ('id', )
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(max_length=20)
@@ -32,10 +39,18 @@ class CustomRegisterSerializer(RegisterSerializer):
 class CustomUserDetailsSerializer(UserDetailsSerializer):
     nickname = serializers.CharField(max_length=20, required=False)
     user_image = serializers.ImageField(required=False)
+    
+
+    # followings = UserSerializer(read_only=True)
+    # followings_count = serializers.IntegerField(source=followings, read_only=True)
+    # followers = UserSerializer(read_only=True)
+    # followers_count = serializers.IntegerField(source=followers, read_only=True)
+    
+
     class Meta(UserDetailsSerializer.Meta):
         model = User
-        fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image')
-        read_only_fields = ('username', 'email')
+        fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image', )
+        read_only_fields = ('username','email',)
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
