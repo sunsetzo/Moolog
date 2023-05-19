@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    리뷰단 영화
+  </div>
 </template>
 
 <script>

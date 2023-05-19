@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import MovieView from '../views/MovieView.vue'
 import GameView from '../views/GameView.vue'
+import MyPageView from '../views/MyPageView.vue'
 import ProfileEditView from '../views/ProfileEditView.vue'
 import SignUpView from '../views/SignUpView.vue'
 
@@ -24,6 +25,11 @@ const routes = [
     path: '/game',
     name: 'game',
     component: GameView
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: MyPageView
   },
   {
     path: '/profileedit',

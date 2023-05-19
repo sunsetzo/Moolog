@@ -23,17 +23,25 @@ const LogIn = {
     authError: state => state.authError,
   },
   mutations: {
+    SIGN_UP_SAVE_TOKEN(state, token){
+      state.token = token
+      // router.push({name:'home'})
+    },
     SAVE_TOKEN(state, token){
       state.token = token
-      
+      router.go(router.currentRoute)
     },
     SET_AUTH_ERROR:(state, error)=>{
       state.authError = error
       state.isAuthError = true
     },
     DELETE_TOKEN(state){
-      state.token=null
-      router.push({name:'home'})
+      state.token = null
+      alert('로그아웃 되었습니다')
+      if (this.$route.path!=='/'){
+        router.push({name:'home'})
+      }
+      // router.go(router.currentRoute)
     }
   },
   actions: {
@@ -49,11 +57,14 @@ const LogIn = {
       })
       .then(res=>{
         console.log('signup res')
-        context.commit('SAVE_TOKEN', res.data.key)
+        context.commit('SIGN_UP_SAVE_TOKEN', res.data.key)
         router.push({name:'home'})
       })
       .catch(err=>{
-        console.log(err, 'SIGNUP ERR')
+        console.log(err.response.data, 'SIGNUP ERR')
+        const errorMessages = Object.values(err.response.data)[0];
+        console.log(errorMessages)
+        alert(errorMessages)
       })
     },
     login(context, payload){
@@ -87,6 +98,24 @@ const LogIn = {
         context.commit('DELETE_TOKEN')
       })
       .catch(err => console.log(err))
+    },
+    signOut(context, userinfo){
+      console.log(userinfo)
+      console.log(context)
+      axios({
+        method:'post',
+        url: `${API_URL}/accounts/signout/`,
+        headers:{
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((res)=>{
+        console.log(res, 'signout success')
+        context.commit('DELETE_TOKEN')
+      })
+      .catch((err)=>{
+        console.log(err, 'signout fail')
+      })
     }
   },
   modules: {

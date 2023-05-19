@@ -16,20 +16,39 @@ const profileEdit = {
   mutations: {
   },
   actions: {
-    editProfile(context, params){
-      const { nickname, user_image, token } = params
+    uploadImg(context, payload){
+      const {image, token} = payload
+      console.log(image)
       console.log(token)
-      console.log(nickname)
-      console.log(user_image)
+      const formData = new FormData()
+      formData.append('user_image', image)
+      console.log(formData)
       axios({
         method:'put',
         url : `${API_URL}/accounts/user/`,
-        data:{
-          nickname,
-          user_image
-        },
+        data: formData,
         headers:{
-          Authorization: `Token ${ token }`
+          Authorization: `Token ${ token }`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((res)=>{
+        console.log(res, 'uploadimg success')
+        context.commit('SAVE_NEW_IMAGE', res)
+      })
+      .catch((err)=>{
+        console.log(err, 'uploadImg fail')
+      })
+
+    },
+    editProfile(context, params){
+      const { nickname, token } = params
+      axios({
+        method:'put',
+        url : `${API_URL}/accounts/user/`,
+        data: {nickname},
+        headers:{
+          Authorization: `Token ${ token }`,
         }
       })
       .then((res)=>{

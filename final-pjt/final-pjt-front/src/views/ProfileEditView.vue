@@ -10,7 +10,7 @@
       <div>
         <label for="EditNickname">NickName : </label>
         <input type="text" id="EditNickname" v-model="nickname">
-
+        <br>
         <!-- 비밀번호 변경 모달 -->
         <button data-bs-toggle="modal" data-bs-target="#exchangePWModal">비밀번호 변경</button>
         <br>
@@ -23,23 +23,25 @@
                 </div>
                 <div class="modal-body">
                   <label for="oldpassword"> 기존 비밀번호 : </label>
-                  <input type="text" id="oldpassword" v-model="oldpassword">
+                  <input type="password" id="oldpassword" v-model="oldpassword">
                   <br>
                   <label for="newpassword1">새로운 비밀번호 : </label>
                   <input type="password" id="newpassword1" v-model="newpassword1">
                   <br>
                   <label for="newpassword2">비밀번호 확인 : </label>
-                  <input type="password" id="newpassword2" v-model="newpassword2">
+                  <input type="password" id="newpassword2" v-model="newpassword2" @keyup="checkPW">
+                  <p>{{ message }}</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">완료</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="completePW">완료</button>
                 </div>
               </div>
             </div>
           </div>
         <!-- 비밀번호 변경 끝 -->
-        <button @click="editProfile(nickname, image)">프로필 수정</button>
+        <button @click="editProfile(nickname)">프로필 수정</button>
+        <button @click="signOut">회원탈퇴</button>
       </div>
     </div>
   </div>
@@ -54,7 +56,9 @@ export default {
       oldpassword : null,
       newpassword1 : null,
       newpassword2 : null,
-      image : 'https://www.ncenet.com/wp-content/uploads/2020/04/no-image-png-2.png'
+      image : '',
+      token : this.$store.state.login.token,
+      message : ''
     }
   },
   created(){
@@ -65,6 +69,7 @@ export default {
     if (oldProfileImg){
       this.image = oldProfileImg
     }
+    // console.log(oldProfileImg)
   },  
   methods:{
     getUser(){
@@ -72,16 +77,39 @@ export default {
     },
     uploadImg(){
       const image = this.$refs['inputImage'].files[0]
-      console.log(image)
       const imageURL = URL.createObjectURL(image)
-      console.log(imageURL)
       this.image = imageURL
+      const token = this.token
+
+      this.$store.dispatch('uploadImg', {image, token})
     },
-    editProfile(nickname, user_image){
-      const token = this.$store.state.login.token
-      const payload = { nickname, user_image, token }
-      console.log(payload)
+    editProfile(nickname){
+      const token = this.token
+      const payload = { nickname,  token }
+      // console.log(payload)
       this.$store.dispatch('editProfile', payload)
+      this.$emit('editProfile', nickname)
+    },
+    checkPW(){
+      if (this.newpassword1!=this.newpassword2 || this.newpassword2!=this.newpassword1){
+        this.message = '비밀번호가 일치하지 않습니다'
+      }else{
+        this.message = ''
+      }
+    },
+    completePW(){
+      const oldpassword = this.oldpassword
+      const password = this.newpassword1
+      const token = this.token
+      const payloadPW = { oldpassword, password, token }
+      this.$store.dispatch('completePW', payloadPW)
+      this.oldpassword = ''
+      this.newpassword1 = ''
+      this.newpassword2 = ''
+    },
+    signOut(){
+      const userinfo = this.$store.state.user
+      this.$store.dispatch('signOut', userinfo)
     }
   }
 }

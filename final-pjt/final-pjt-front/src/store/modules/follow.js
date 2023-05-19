@@ -14,6 +14,9 @@ const follow = {
     follow : []
   },
   getters: {
+    GET_FOLLOW(state, res){
+      state.follow = res
+    }
   },
   mutations: {
   },
@@ -25,11 +28,11 @@ const follow = {
 
       })
       .then((res)=>{
-        console.log(res)
+        console.log(res, 'follow res')
         context.commit('GET_FOLLOW')
       })
       .catch((err)=>{
-        console.log(err)
+        console.log(err, 'followerr')
       })
     }
   },
