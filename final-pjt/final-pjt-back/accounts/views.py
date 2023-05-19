@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout as auth_logout
 
+from django.http import HttpResponse
+
 from django.shortcuts import render, redirect
 
 from rest_framework import views
@@ -14,6 +16,13 @@ from .serializers import CustomUserSerializer
 
 User = get_user_model()
 
+def social_login(request):
+    # data = {
+    #     'detail' : '소셜회원가입이 완료되었습니다.'
+    # }
+    return HttpResponse("소셜회원가입이 완료되었습니다.")
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def signout(request):
@@ -26,7 +35,6 @@ def signout(request):
 
 
 
-# 수정해야함.....
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def follow(request, user_pk):

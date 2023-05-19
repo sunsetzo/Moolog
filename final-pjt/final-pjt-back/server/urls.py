@@ -21,7 +21,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from dj_rest_auth.views import PasswordResetConfirmView
 from dj_rest_auth.registration.views import VerifyEmailView
+
 # from accounts.views import ConfirmEmailView
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,7 +35,8 @@ urlpatterns = [
     path("password-reset/confirm/<uidb64>/<token>/",
        PasswordResetConfirmView.as_view(),
        name='password_reset_confirm'),
-    # path('accounts/allauth/', include('allauth.urls')),
+    path('accounts/allauth/', include('allauth.urls')),
+    
     # 유효한 이메일을 유저에게 전달
     # re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     # 유저가 클릭한 이메일(=링크) 확인
