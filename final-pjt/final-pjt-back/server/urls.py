@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from dj_rest_auth.views import PasswordResetConfirmView
 from dj_rest_auth.registration.views import VerifyEmailView
+# from allauth.socialaccount.views import GoogleLoginView
 
 # from accounts.views import ConfirmEmailView
 
@@ -36,6 +37,7 @@ urlpatterns = [
        PasswordResetConfirmView.as_view(),
        name='password_reset_confirm'),
     path('accounts/allauth/', include('allauth.urls')),
+    # path('accounts/google/login/', GoogleLoginView.as_view(), name='google_login'),
     
     # 유효한 이메일을 유저에게 전달
     # re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),

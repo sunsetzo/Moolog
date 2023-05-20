@@ -11,7 +11,7 @@ export default {
   methods: {
     handleGoogleLogin() {
       const clientId = '128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com'; // 구글 API 클라이언트 ID를 입력하세요.
-      const redirectUri = 'http://localhost:8000/accounts/allauth/google/login/callback/'; // 구글 로그인 후 리디렉션될 URL을 입력하세요.
+      const redirectUri = 'http://127.0.0.1:8000/accounts/allauth/google/login/callback/'; // 구글 로그인 후 리디렉션될 URL을 입력하세요.
 
       const scopes = 'email%20profile'; // 수정된 스코프 값
 

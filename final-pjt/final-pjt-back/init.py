@@ -3,7 +3,7 @@ import json
 
 TMDB_API_KEY = 'be22ff2ea45ab37ba4186006a5a150c5'
 
-def get_movie_datas():
+def get_now_playing_movie_datas():
     total_data = []
 
     #### 현재 상영작 데이터 가져오기 ####
@@ -28,12 +28,22 @@ def get_movie_datas():
 
             data = {
                 "pk": movie['id'],
-                "model": "movies.movie",
+                "model": "movies.nowplayingmovie",
                 "fields": fields
             }
 
             now_playing_movies_cnt += 1
             total_data.append(data)
+
+    print(f'현재 상영작 영화 개수 : {now_playing_movies_cnt}개')
+
+    with open("movies/fixtures/now_playing_movie_data.json", "w", encoding="utf-8") as w:
+        json.dump(total_data, w, indent=4, ensure_ascii=False)
+
+
+
+def get_upcoming_movie_datas():
+    total_data = []
     
     #### 개봉 예정작 데이터 가져오기 ####
     upcoming_movies_cnt = 0
@@ -57,12 +67,21 @@ def get_movie_datas():
 
             data = {
                 "pk": movie['id'],
-                "model": "movies.movie",
+                "model": "movies.upcomingmovie",
                 "fields": fields
             }
 
             upcoming_movies_cnt += 1
             total_data.append(data)
+
+    print(f'개봉 예정작 영화 개수 : {upcoming_movies_cnt}개')
+
+    with open("movies/fixtures/upcoming_movie_data.json", "w", encoding="utf-8") as w:
+        json.dump(total_data, w, indent=4, ensure_ascii=False)
+
+
+def get_popular_movie_datas():
+    total_data = []
 
     #### 인기있는 영화 데이터 가져오기 ####
 
@@ -87,15 +106,13 @@ def get_movie_datas():
 
                 data = {
                     "pk": movie['id'],
-                    "model": "movies.movie",
+                    "model": "movies.popularmovie",
                     "fields": fields
                 }
 
                 total_data.append(data)
-
-    print(f'현재 상영작 영화 개수 : {now_playing_movies_cnt}개, 개봉 예정작 영화 개수 : {upcoming_movies_cnt}개')
-
-    with open("movies/fixtures/movie_data.json", "w", encoding="utf-8") as w:
+    
+    with open("movies/fixtures/popular_movie_data.json", "w", encoding="utf-8") as w:
         json.dump(total_data, w, indent=4, ensure_ascii=False)
 
 
@@ -121,7 +138,10 @@ def get_genre_data():
     with open("movies/fixtures/genre_data.json", "w", encoding="utf-8") as w:
         json.dump(total_data, w, indent=4, ensure_ascii=False)
 
-get_movie_datas()
+
+get_now_playing_movie_datas()
+get_upcoming_movie_datas()
+get_popular_movie_datas()
 get_genre_data()
 
 '''
@@ -131,6 +151,6 @@ python init.py
 
 python manage.py migrate
 
-python manage.py loaddata genre_data.json movie_data.json
+python manage.py loaddata genre_data.json now_playing_movie_data.json popular_movie_data.json upcoming_movie_data.json
 
 '''

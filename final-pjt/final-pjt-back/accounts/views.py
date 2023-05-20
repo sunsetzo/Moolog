@@ -11,6 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework import status
 
+import requests
+
 
 # from .serializers import UserSerializer
 
@@ -21,6 +23,7 @@ def social_login(request):
     #     'detail' : '소셜회원가입이 완료되었습니다.'
     # }
     return HttpResponse("소셜회원가입이 완료되었습니다.")
+    
 
 
 @api_view(['POST'])
