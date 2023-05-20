@@ -14,7 +14,7 @@
         1) 로그인이 안되어 있으면 로그인 모달창
         2) 로그인이 되어 있으면 프로필 수정 및 로그아웃 버튼-->
         <div v-show="isLogin" >
-          <p>반갑슈 {{ loginuser }}</p>
+          <p>반갑슈 {{ nickname }}</p>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               임시 프로필 이미지
@@ -47,9 +47,8 @@
                   </div>
                   <!-- 계정 연동 로그인 -->
                   <div>
-                    <!-- <google-signin-button class="google-login-button" :params="params" :onSuccess="GoogleLoginSuccess" :onFailure="GoogleLoginFailure">
-                      <img src="" alt="google login"></google-signin-button> -->
                     <GoogleLogin/>
+                    <NaverLogin/>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -89,14 +88,18 @@
 <script>
 import axios from 'axios'
 import GoogleLogin from './components/Social/GoogleLogin.vue'
+import NaverLogin from './components/Social/NaverLogin.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name:'App',
   components: {
-    GoogleLogin
+    GoogleLogin,
+    NaverLogin
   },
   data(){
     return{
+      nickname : this.$store.state.user.nickname,
       username : null,
       password : null,
       loginuser : '',
@@ -114,6 +117,7 @@ export default {
   }
 },
   computed : {
+    ... mapGetters(['currentUser']),
     isLogin(){
       return this.$store.getters.isLogin
     },

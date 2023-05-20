@@ -19,6 +19,7 @@ const LogIn = {
     isLogin(state){
       return state.token ? true:false
     },
+    currentUser : state => state.userInfo,
     isAuthError: state => state.isAuthError,
     authError: state => state.authError,
   },

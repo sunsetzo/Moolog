@@ -4,10 +4,10 @@
       <img :src="userinfo.user_image" alt="profile img">
     </div>
     <div>
-      <h1>{{ username }}</h1>
+      <h1>{{ nickname }}</h1>
       <p>팔로워 수: {{ followersCount }}</p>
       <p>팔로잉 수: {{ followingsCount }}</p>
-      <button @click="toggleFollow">
+      <button v-if="!isCurrentUser" @click="toggleFollow">
         {{ isFollowing ? '언팔로우' : '팔로우' }}
       </button>
     </div>  
@@ -16,20 +16,24 @@
 
 <script>
 import axios from 'axios';
+import {mapGetters} from 'vuex'
 
 export default {
   name : 'ProFile',
   data() {
     return {
-      username: '',            // 사용자 이름
-      followersCount: 0,       // 팔로워 수
-      followingsCount: 0,      // 팔로잉 수
+      userinfo : this.$store.state.user,
+      nickname: this.$store.state.user.nickname,            // 사용자 이름
+      followersCount: this.$store.state.user.followers_count,       // 팔로워 수
+      followingsCount: this.$store.state.user.followings_count,      // 팔로잉 수
       isFollowing: false       // 현재 사용자가 팔로우 중인지 여부
     };
   },
-  mounted() {
-    // 사용자 정보 및 팔로우/팔로잉 수를 가져오는 API 요청
-    this.getUserData();
+  computed:{
+    ...mapGetters(['currentUser']),
+    isCurrentUser() {
+      return this.$store.state.user.pk === this.userinfo.pk;
+    }
   },
   methods: {
     toggleFollow() {
@@ -42,7 +46,7 @@ export default {
     },
     followUser() {
       // 팔로우 API 요청
-      axios.post('/api/follow/', { username: this.username })
+      axios.post('http://127.0.0.1:8000/accounts/follow/:userpk', { userpk: this.userinfo.pk })
         .then((res) => {
           console.log(res)
           this.isFollowing = true;
@@ -54,7 +58,7 @@ export default {
     },
     unfollowUser() {
       // 언팔로우 API 요청
-      axios.post('http://127.0.0.1:8000/accounts/follow/', { username: this.username })
+      axios.post('http://127.0.0.1:8000/accounts/follow/:userpk', { userpk: this.userinfo.pk })
         .then(response => {
           console.log(response)
           this.isFollowing = false;
@@ -64,19 +68,6 @@ export default {
           console.error(error);
         });
     },
-    getUserData() {
-      // 사용자 정보 및 팔로우/팔로잉 수를 가져오는 API 요청
-      axios.get(`http://127.0.0.1:8000/accounts/follow/${this.username}`)
-        .then(response => {
-          this.username = response.data.username;
-          this.followersCount = response.data.followers_count;
-          this.followingsCount = response.data.followings_count;
-          this.isFollowing = response.data.is_following;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
   }
 }
 </script>
@@ -85,5 +76,9 @@ export default {
 .profile{
   display: flex;
   justify-content: space-around;
+}
+img {
+  width: 300px;
+  height: 300px;
 }
 </style>
