@@ -20,6 +20,7 @@ export default new Vuex.Store({
     user : [],
   },
   getters: {
+    userInfo : state => state.user
   },
   mutations: {
     GET_USER(state, user){
@@ -42,6 +43,7 @@ export default new Vuex.Store({
     },
     LOGOUT_USER(state){
       state.user = []
+      localStorage.removeItem(login.state.token)
     }
   },
   actions: {

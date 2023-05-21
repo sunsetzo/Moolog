@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div>로그인 해달라는 이미지</div>
+    <div>
+      <button data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+    </div>
     <div>영화 추천??</div>
   </div>
 </template>

@@ -19,7 +19,7 @@ const LogIn = {
     isLogin(state){
       return state.token ? true:false
     },
-    currentUser : state => state.userInfo,
+    // currentUser : state => state.userInfo,
     isAuthError: state => state.isAuthError,
     authError: state => state.authError,
   },
@@ -39,10 +39,16 @@ const LogIn = {
     DELETE_TOKEN(state){
       state.token = null
       alert('로그아웃 되었습니다')
+      if (router.currentRoute.path !== '/') {
+        router.push({ name: 'home' })  // 홈으로 이동하는 방법
+      }
+    },
+    SIGN_OUT_TOKEN(state){
+      state.token = null
+      alert('회원 탈퇴가 완료되었습니다')
       if (this.$route.path!=='/'){
         router.push({name:'home'})
       }
-      // router.go(router.currentRoute)
     }
   },
   actions: {
@@ -57,7 +63,7 @@ const LogIn = {
         }
       })
       .then(res=>{
-        console.log('signup res')
+        console.log('signup res', res.data)
         context.commit('SIGN_UP_SAVE_TOKEN', res.data.key)
         router.push({name:'home'})
       })
@@ -80,6 +86,7 @@ const LogIn = {
         }
       })
       .then((res)=>{
+        console.log(res)
         context.commit('SAVE_TOKEN', res.data.key)
       })
       .catch((err)=>{
@@ -97,6 +104,7 @@ const LogIn = {
       })
       .then(()=>{
         context.commit('DELETE_TOKEN')
+        context.commit('LOGOUT_USER')
       })
       .catch(err => console.log(err))
     },
@@ -112,7 +120,8 @@ const LogIn = {
       })
       .then((res)=>{
         console.log(res, 'signout success')
-        context.commit('DELETE_TOKEN')
+        context.commit('SIGN_OUT_TOKEN')
+        context.commit('LOGOUT_USER') //state의 user정보 삭제
       })
       .catch((err)=>{
         console.log(err, 'signout fail')
