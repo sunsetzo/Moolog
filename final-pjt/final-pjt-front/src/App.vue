@@ -24,8 +24,8 @@
               임시 프로필 이미지
             </button>
             <ul class="dropdown-menu">
-              <li><router-link :to="{name : 'mypage'}">My Page</router-link></li>
-              <li><router-link :to="{name : 'profileedit'}">ProfileEdit</router-link></li>
+              <li><router-link :to="{name : 'mypage' }" class="dropdown-item">My Page</router-link></li>
+              <li><router-link :to="{name : 'profileedit'}" class="dropdown-item">ProfileEdit</router-link></li>
               <li><a class="dropdown-item" @click="logOut">Logout</a></li>
             </ul>
           </div>
@@ -129,6 +129,9 @@ export default {
       return this.userInfo.nickname
     },
     profileImg(){
+      if (!this.userInfo.user_image){
+        return 'http://127.0.0.1:8000/media/profile_images/user_img.png'
+      }
       return this.userInfo.user_image
     }
   },
@@ -212,8 +215,11 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-li{
+li {
   list-style : none;
+}
+li a {
+  text-decoration: none;
 }
 .main-profile{
   display: flex;
