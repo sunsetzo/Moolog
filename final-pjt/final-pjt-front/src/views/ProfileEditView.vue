@@ -41,6 +41,7 @@
           </div>
         <!-- 비밀번호 변경 끝 -->
         <button @click="editProfile(nickname)">프로필 수정</button>
+        <br>
         <button @click="signOut">회원탈퇴</button>
       </div>
     </div>
@@ -68,6 +69,8 @@ export default {
     const oldProfileImg = this.$store.state.user.user_image
     if (oldProfileImg){
       this.image = oldProfileImg
+    }else{
+      this.image = 'http://127.0.0.1:8000/media/profile_images/user_img.png'
     }
     // console.log(oldProfileImg)
   },  

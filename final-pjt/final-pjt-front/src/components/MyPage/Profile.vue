@@ -1,7 +1,7 @@
 <template>
   <div class="profile">
     <div>
-      <img :src="userinfo.user_image" alt="profile img">
+      <img :src="userImg" alt="profile img">
     </div>
     <div>
       <h1>{{ nickname }}</h1>
@@ -30,9 +30,15 @@ export default {
     };
   },
   computed:{
-    ...mapGetters(['currentUser']),
+    ...mapGetters(['userInfo']),
     isCurrentUser() {
       return this.$store.state.user.pk === this.userinfo.pk;
+    },
+    userImg(){
+      if (!this.userInfo.user_image){
+        return 'http://127.0.0.1:8000/media/profile_images/user_img.png'
+      }
+      return this.userInfo.user_image
     }
   },
   methods: {
@@ -72,7 +78,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .profile{
   display: flex;
   justify-content: space-around;

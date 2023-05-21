@@ -15,14 +15,17 @@
         1) 로그인이 안되어 있으면 로그인 모달창
         2) 로그인이 되어 있으면 프로필 수정 및 로그아웃 버튼-->
         <div v-show="isLogin" >
-          <p>반갑슈 {{ nickname }}</p>
+          <div class="main-profile">
+            <img :src="profileImg" alt="profileImg" class="main-profile-img">
+            <p>반갑슈 {{ nickname }}</p>
+          </div>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               임시 프로필 이미지
             </button>
             <ul class="dropdown-menu">
-              <li><router-link :to="{name : 'mypage'}">My Page</router-link></li>
-              <li><router-link :to="{name : 'profileedit'}">ProfileEdit</router-link></li>
+              <li><router-link :to="{name : 'mypage' }" class="dropdown-item">My Page</router-link></li>
+              <li><router-link :to="{name : 'profileedit'}" class="dropdown-item">ProfileEdit</router-link></li>
               <li><a class="dropdown-item" @click="logOut">Logout</a></li>
             </ul>
           </div>
@@ -41,7 +44,7 @@
                     <input type="text" id="username" v-model="username">
                     <br>
                     <label for="loginPW">PW : </label>
-                    <input type="password" id="password" v-model="password">
+                    <input type="password" id="password" v-model="password" @keyup.enter="logIn">
                     <br>
                     <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</button>
                     
@@ -102,7 +105,6 @@ export default {
   },
   data(){
     return{
-      nickname : this.$store.state.user.nickname,
       username : null,
       password : null,
       loginuser : '',
@@ -113,15 +115,25 @@ export default {
   },
   created(){
     this.getUser()
+
     if (this.isLogin) {
       this.loginuser = this.$store.state.user.nickname
   }
 },
   computed : {
-    ... mapGetters(['currentUser']),
+    ... mapGetters(['userInfo']),
     isLogin(){
       return this.$store.getters.isLogin
     },
+    nickname(){
+      return this.userInfo.nickname
+    },
+    profileImg(){
+      if (!this.userInfo.user_image){
+        return 'http://127.0.0.1:8000/media/profile_images/user_img.png'
+      }
+      return this.userInfo.user_image
+    }
   },
   methods:{
     logIn(){
@@ -147,7 +159,7 @@ export default {
     },
     getNickname(nickname){
       console.log(nickname)
-      this.loginuser = nickname
+      // this.loginuser = nickname
     },
     findPW(){
       console.log(this.isForgot)
@@ -159,6 +171,8 @@ export default {
     },
     getUser(){
       this.$store.dispatch('getUser')
+      // console.log(currentUser)
+      // this.loginuser = this.currentUser.nickname
     },
     // google
     onSuccess(googleUser){
@@ -201,7 +215,18 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-li{
+li {
   list-style : none;
+}
+li a {
+  text-decoration: none;
+}
+.main-profile{
+  display: flex;
+}
+.main-profile-img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }
 </style>
