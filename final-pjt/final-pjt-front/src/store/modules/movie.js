@@ -10,15 +10,18 @@ const movie = {
     createPersistedState()
   ],
   state: {
-    recentMovies : [],
+    currentMovies : [],
     upcomingMovies : [],
     Movies : []
   },
-  getters: {    
+  getters: {
+    currentMovies : state => state.currentMovie,
+    upcomingMovies : state => state.upcomingMovies,
+    Movies : state => state.Movies
   },
   mutations: {
-    GET_RECENT_MOVIES(state, movies){
-        state.recentMovies = movies
+    GET_CURRENT_MOVIES(state, movies){
+        state.currentMovies = movies
     },
     GET_UPCOMING_MOVIES(state, movies){
         state.upcomingMovies = movies
@@ -28,14 +31,14 @@ const movie = {
     }
   },
   actions: {
-    getRecentMovies(context){
+    getCurrentMovies(context){
         axios({
             method:'get',
             url: `${API_URL}`
         })
         .then((res)=>{
             console.log(res, context)
-            context.commit('GET_RECENT_MOVIES', res.data)
+            context.commit('GET_CURRENT_MOVIES', res.data)
         })
         .catch((err)=>{
             console.log(err)

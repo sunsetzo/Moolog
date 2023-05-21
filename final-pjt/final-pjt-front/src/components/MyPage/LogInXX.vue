@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <div>
+    <div>로그인 해달라는 이미지</div>
+    <div>영화 추천??</div>
+  </div>
 </template>
 
 <script>

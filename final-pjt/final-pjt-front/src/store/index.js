@@ -8,6 +8,7 @@ import login from './modules/login.js'
 import profileedit from './modules/profileedit.js'
 import password from './modules/password.js'
 import follow from './modules/follow.js'
+import movie from './modules/movie.js'
 
 const API_URL = 'http://127.0.0.1:8000'
 
