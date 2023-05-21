@@ -69,5 +69,6 @@ export default new Vuex.Store({
     profileedit,
     password,
     follow,
+    movie,
   }
 })

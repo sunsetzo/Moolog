@@ -40,7 +40,7 @@
     methods: {
       handleNaverLogin() {
         const clientId = 'qbZ6_KhqIlCQqX9OXwEr';
-        const callbackUrl = 'http://127.0.0.1:8000/accounts/allauth/naver/login/callback/';
+        const callbackUrl = 'http://localhost:8080/';
         const authUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackUrl}`;
   
         window.open(authUrl, '_blank', 'width=500,height=600');
