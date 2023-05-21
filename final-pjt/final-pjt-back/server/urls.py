@@ -29,7 +29,7 @@ from dj_rest_auth.registration.views import VerifyEmailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/v1/', include('articles.urls')),
+    path('api/v1/', include('movies.urls')),
     path('accounts/', include('dj_rest_auth.urls')),
     # 회원가입 및 회원 가입시 이메일 인증 & 비밀번호 초기화 시 이메일 전송 링크
     path('accounts/signup/', include('dj_rest_auth.registration.urls')),
