@@ -2,7 +2,8 @@
   <div id="app">
     <header>
       <div>
-        <img src="" alt="logo">
+        <img src="" alt="logo" @click="getRandomMovie()" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
+        <RandomMovie/>
       </div>
       <nav>
         <router-link :to="{name : 'home'}">Home</router-link> |
@@ -89,13 +90,15 @@
 import axios from 'axios'
 import GoogleLogin from './components/Social/GoogleLogin.vue'
 import NaverLogin from './components/Social/NaverLogin.vue'
+import RandomMovie from './components/Movie/RandomMovie.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name:'App',
   components: {
     GoogleLogin,
-    NaverLogin
+    NaverLogin,
+    RandomMovie,
   },
   data(){
     return{
@@ -105,9 +108,7 @@ export default {
       loginuser : '',
       email : null,
       // google-login
-      params:{
-        client_id : process.env.VUE_APP_GOOGLE_CLIENT_ID,
-      }
+      showRandomMovie : this.$store.state.movie.showRandomMovie,
     }
   },
   created(){
@@ -167,6 +168,9 @@ export default {
         url : 'http://127.0.0.1:8000/accounts/allauth/google/login/'
         
       })
+    },
+    getRandomMovie(){
+      this.$store.commit('getRandomMovie')
     }
   }
 }

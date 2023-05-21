@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import router from '@/router'
 import createPersistedState from 'vuex-persistedstate'
+import {sampleSize} from 'lodash'
 
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -12,12 +13,15 @@ const movie = {
   state: {
     currentMovies : [],
     upcomingMovies : [],
-    Movies : []
+    Movies : [],
+    randomMovie : null,
+    showRandomMovie : false,
   },
   getters: {
     currentMovies : state => state.currentMovie,
     upcomingMovies : state => state.upcomingMovies,
-    Movies : state => state.Movies
+    Movies : state => state.Movies,
+    randomMovie : state => state.randomMovie
   },
   mutations: {
     GET_CURRENT_MOVIES(state, movies){
@@ -28,6 +32,10 @@ const movie = {
     },
     GET_MOVIES(state, movies){
         state.Movies = movies
+    },
+    getRandomMovie(state){
+        state.randomMovie = sampleSize(state.Movies, 1)
+        state.showRandomMovie = true
     }
   },
   actions: {
@@ -69,7 +77,8 @@ const movie = {
         .catch((err)=>{
             console.log(err)
         })
-    }
+    },
+    
   },
   modules: {
   }
