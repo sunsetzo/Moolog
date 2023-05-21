@@ -62,3 +62,8 @@ client_password: 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
 email : Moolog0107@gmail.com
 password: ssafy1234!
 앱비밀번호 : oxuatzupsjogjmhj
+
+
+네이버 OAUth
+client_id : qbZ6_KhqIlCQqX9OXwEr
+callback_url : http://127.0.0.1:8000/accounts/allauth/naver/login/callback/

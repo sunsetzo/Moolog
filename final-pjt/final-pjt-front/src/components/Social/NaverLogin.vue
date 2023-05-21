@@ -1,26 +1,51 @@
 <template>
     <div>
-        <button @click="loginWithNaver">네이버 소셜 로그인</button>
+      <button @click="handleNaverLogin">네이버 소셜 로그인</button>
     </div>
-</template>
-
-<script>
-import axios from 'axios';
-
-export default {
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  
+  export default {
     name: 'NaverLogin',
+    created() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const state = params.get('state');
+  
+      if (code && state) {
+        console.log('네이버 로그인 성공');
+        console.log('Authorization Code:', code);
+        console.log('State:', state);
+  
+        // Django 서버에 사용자 정보 전송
+        axios
+          .get('https://nid.naver.com/oauth2.0/token', {
+            params: {
+              code: code,
+              state: state
+            }
+          })
+          .then(response => {
+            console.log('사용자 정보 저장 성공:', response.data);
+            // 여기서 창을 닫습니다.
+            window.close();
+          })
+          .catch(error => {
+            console.error('사용자 정보 저장 실패:', error);
+          });
+      }
+    },
     methods: {
-        loginWithNaver() {
-        axios.post('http://127.0.0.1:8000/accounts/allauth/naver/login/')
-            .then(response => {
-            // 요청 성공 시 처리할 로직 작성
-            console.log(response.data);
-            })
-            .catch(error => {
-            // 요청 실패 시 처리할 로직 작성
-            console.error(error);
-            });
-        }
-}
-}
-</script>
+      handleNaverLogin() {
+        const clientId = 'qbZ6_KhqIlCQqX9OXwEr';
+        const callbackUrl = 'http://127.0.0.1:8000/accounts/allauth/naver/login/callback/';
+        const authUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackUrl}`;
+  
+        window.open(authUrl, '_blank', 'width=500,height=600');
+      }
+    }
+  };
+  </script>
+  

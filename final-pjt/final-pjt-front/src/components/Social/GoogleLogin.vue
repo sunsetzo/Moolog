@@ -1,49 +1,56 @@
 <template>
-<div>
-  <button @click="handleGoogleLogin">구글 소셜 로그인</button>
-</div>
+  <div>
+    <button @click="loginWithGoogle">구글 소셜 로그인</button>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
-
 export default {
   methods: {
-    handleGoogleLogin() {
-      const clientId = '128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com'; // 구글 API 클라이언트 ID를 입력하세요.
-      const redirectUri = 'http://127.0.0.1:8000/accounts/allauth/google/login/callback/'; // 구글 로그인 후 리디렉션될 URL을 입력하세요.
+    loginWithGoogle: function() {
+      const clientID = '128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com';
+      const redirectURL = 'http://localhost:8080/';
 
-      const scopes = 'email%20profile'; // 수정된 스코프 값
+      // 구글 소셜 로그인 URL 생성
+      const googleLoginURL = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=' + clientID + '&redirect_uri=' + redirectURL + '&scope=email%20profile';
 
-      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scopes}`;
+      // 새 창에서 구글 소셜 로그인 페이지 열기
+      window.open(googleLoginURL, '_self');
 
-      //https://accounts.google.com/o/oauth2/v2/auth?client_id=128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com&redirect_uri=accounts/allauth/google/login/callback/&response_type=code&scope=email%20profile
-      console.log(authUrl)
-
-      window.location.href = authUrl;
     },
-    handleLoginSuccess(code) {
-      const url = 'http://127.0.0.1:8000/accounts/'; // Django API 엔드포인트 URL을 입력하세요.
-
-      // Axios를 사용하여 Django 서버로 POST 요청 보내기
-      axios.post(url, { code })
-        .then(response => {
-          // 요청 성공 시 동작할 코드 작성
+    
+    processGoogleUserInfo: function(code) {
+      // var self = this;
+      console.log(code)
+      // 서버로 구글 사용자 정보를 요청하기 위한 POST 요청 보내기
+      axios.get('https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}', {headers: { "content-type": "application/x-www-form-urlencoded" }, code: code })
+        .then(function(response) {
+          // 응답 처리
           console.log(response.data);
+          console.log('google login success')
+          // DB에 성공적으로 저장되었거나 추가 작업을 수행
+
+          // 처리 후 메인 홈으로 이동
+          window.location.href = 'http://localhost:8080/';
         })
-        .catch(error => {
-          // 요청 실패 시 동작할 코드 작성
+        .catch(function(error) {
           console.error(error);
+          console.log('google login error')
+          // 에러 처리
         });
     }
   },
-  mounted() {
-    // 리디렉션된 URL에서 쿼리 파라미터 "code"를 가져옴
-    const code = new URLSearchParams(window.location.search).get('code');
-    
-    // "code" 파라미터가 있는 경우에만 로그인 성공 처리
+  
+  created: function() {
+    // URL 파라미터에서 code 추출
+    console.log('created 호출')
+    var params = new URLSearchParams(window.location.search);
+    var code = params.get('code');
+
     if (code) {
-      this.handleLoginSuccess(code);
+      // code가 존재할 경우 구글 사용자 정보 처리
+      this.processGoogleUserInfo(code);
     }
   }
 }
