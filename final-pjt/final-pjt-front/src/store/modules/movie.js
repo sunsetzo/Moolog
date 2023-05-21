@@ -42,7 +42,7 @@ const movie = {
     getCurrentMovies(context){
         axios({
             method:'get',
-            url: `${API_URL}`
+            url: `${API_URL}/api/v1/now_playing_movies/`,
         })
         .then((res)=>{
             console.log(res, context)

@@ -14,14 +14,14 @@ export default {
   computed:{
     ...mapGetters(['currentMovies']),
   },
-  // created(){
-  //   this.getCurrentMovie()
-  // },
-  // methods:{
-  //   getCurrentMovie(){
-  //     this.$store.dispatch('getCurrentMovie')
-  //   }
-  // }
+  created(){
+    this.getCurrentMovie()
+  },
+  methods:{
+    getCurrentMovie(){
+      this.$store.dispatch('getCurrentMovie')
+    }
+  }
 }
 </script>
 
