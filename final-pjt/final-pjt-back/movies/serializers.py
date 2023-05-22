@@ -10,6 +10,7 @@ class GenreListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# 현재 상영작
 class NowPlayingMovieListSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -32,4 +33,56 @@ class NowPlayingMovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NowPlayingMovie
+        fields = '__all__'
+
+
+# 개봉 예정작
+class UpcomingMovieListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = UpcomingMovie
+        fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
+
+
+class UpcomingMovieReviewSerializer(serializers.ModelSerializer):
+    nickname = serializers.CharField(max_length=20, source='user.nickname', read_only=True, required=False) 
+    userimage = serializers.ImageField(read_only=True, required=False)
+
+    class Meta:
+        model = UpcomingReview
+        fields = '__all__'
+        read_only_fields = ('user', 'movie',)
+
+
+class UpcomingMovieSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UpcomingMovie
+        fields = '__all__'
+
+
+# 인기 영화
+class PopularMovieListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = PopularMovie
+        fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
+
+
+class PopularMovieReviewSerializer(serializers.ModelSerializer):
+    nickname = serializers.CharField(max_length=20, source='user.nickname', read_only=True, required=False) 
+    userimage = serializers.ImageField(read_only=True, required=False)
+
+    class Meta:
+        model = PopularReview
+        fields = '__all__'
+        read_only_fields = ('user', 'movie',)
+
+
+class PopularMovieSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PopularMovie
         fields = '__all__'
