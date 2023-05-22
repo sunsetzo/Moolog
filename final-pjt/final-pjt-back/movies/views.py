@@ -214,3 +214,68 @@ def popular_movies_likes(request, movie_id):
     
     serializer = PopularMovieSerializer(movie)
     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+# 추천 영화
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def recommend_movie_list(request):
+    now_playing_movies = get_list_or_404(NowPlayingMovie)
+    upcoming_movies = get_list_or_404(UpcomingMovie)
+    popular_movies = get_list_or_404(PopularMovie)
+
+    user_like_movies = []
+    user_like_movie_genre = {}
+    recommend_movies = []
+
+    # 유저가 좋아요한 영화 리스트 완성
+    for movie in now_playing_movies:
+        # 해당 영화가 로그인한 유저가 좋아요한 영화라면 추가
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            user_like_movies.append(movie)
+            # genre count
+            for genre in movie.genres.all():
+                if user_like_movie_genre.get(genre.id):
+                    user_like_movie_genre[genre.id] += 1
+                else:
+                    user_like_movie_genre[genre.id] = 1
+    
+    for movie in upcoming_movies:
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            user_like_movies.append(movie)
+            for genre in movie.genres.all():
+                if user_like_movie_genre.get(genre.id):
+                    user_like_movie_genre[genre.id] += 1
+                else:
+                    user_like_movie_genre[genre.id] = 1
+
+
+    for movie in popular_movies:
+        if movie.like_users.filter(pk=request.user.pk).exists():
+            user_like_movies.append(movie)
+            for genre in movie.genres.all():
+                if user_like_movie_genre.get(genre.id):
+                    user_like_movie_genre[genre.id] += 1
+                else:
+                    user_like_movie_genre[genre.id] = 1
+    
+    top3_genres = []    # 유저가 좋아요한 영화 중 상위 3개의 장르만 담길 배열
+    temp = []
+    for key, val in user_like_movie_genre.items():
+        temp.append((key, val))
+    temp = sorted(temp, key=lambda x:x[1])
+
+    for _ in range(3):
+        if temp:
+            top3_genres.append(temp.pop())
+
+    
+    for movie in popular_movies:
+        for genre in movie.genres.all():
+            for genre_top in top3_genres:
+                if genre.id == genre_top[0]:
+                    recommend_movies.append(movie)
+
+    serializer = PopularMovieListSerializer(recommend_movies, many=True)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
