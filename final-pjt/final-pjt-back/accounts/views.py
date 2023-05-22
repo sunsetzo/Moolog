@@ -10,6 +10,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework import status
+from django.shortcuts import get_list_or_404, get_object_or_404
+
+from .serializers import CustomUserDetailsSerializer
 
 import requests
 
@@ -77,4 +80,11 @@ def upload_image(request):
     data = {
             'detail': '등록한 이미지 파일이 존재하지 않습니다.'
         }
-    return Response(data, status=status.HTTP_404_NOT_FOUND)
+    return Response(data, status=status.HTTP_404_NOT_FOUND) 
+
+
+@api_view(['GET'])
+def profile(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+    serializer = CustomUserDetailsSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
