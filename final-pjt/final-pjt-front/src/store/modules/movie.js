@@ -58,7 +58,7 @@ const movie = {
             url:`${API_URL}/api/v1/upcoming_movies/`
         })
         .then((res)=>{
-            console.log(res)
+            // console.log(res)
             context.commit('GET_UPCOMING_MOVIES', res.data)
         })
         .catch((err)=>{
@@ -68,10 +68,10 @@ const movie = {
     getMovies(context){
         axios({
             menubar:'get',
-            url:`${API_URL}`
+            url:`${API_URL}/api/v1/popular_movies/`
         })
         .then((res)=>{
-            console.log(res)
+            // console.log(res)
             context.commit('GET_MOVIES', res.data)
         })
         .catch((err)=>{
