@@ -1,44 +1,58 @@
 <template>
   <div>
-    <h1>상영 예정 영화</h1>
+    <h2>상영 예정 영화</h2>
     <v-sheet
       class="mx-auto"
       elevation="8"
       max-width="1950"
+      color="black"
     >
       <v-slide-group
-        v-model="upcomingmodel"
+        color="white"
+        v-model="model"
         class="pa-4"
         selected-class="bg-success"
+        prev-icon="mdi-minus"
+        next-icon="mdi-plus"
         show-arrows
       >
         <v-slide-item
           v-for="movie in upcomingMovies"
           :key="movie.id"
-          v-slot="{ active, toggle }"
-        >
-          <v-card
-            color="grey lighten-1"
-            class="ma-4"
-            height="460"
-            width="310"
-            :class="{ 'bg-dark': active }"
-            @click="toggle"
-          >
-          <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="upcoming_movie_poster" class="upcomingMoviePoster imgJanela hoverIMG">
-            <div class="d-flex fill-height align-center justify-center">
-              <v-scale-transition>
-                <v-icon
-                  v-if="active"
-                  color="white"
-                  size="48"
-                  @click.stop="toggle"
-                >
-                  mdi-close-circle-outline
-                </v-icon>
-              </v-scale-transition>
-            </div>
-          </v-card>
+          v-slot="{ active, toggle }">
+          <v-hover v-slot="{ hover }">
+            <v-card
+              color="black"
+              class="mx-auto my-auto"
+              height="460"
+              width="310"
+              :class="{ 'bg-dark': active }"
+              @click="toggle"
+            >
+            
+            <v-img
+            :aspect-ratio="3/4"
+            :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="current_movie_poster" 
+            class="imgJanela hoverIMG">
+            </v-img>
+            <v-btn v-if="hover"
+            center
+              elevation="6">
+              <router-link :to="{name:'upcomingmovie', params:{id:movie?.id}}">상세보기</router-link>
+              </v-btn>
+              <div class="d-flex fill-height align-center justify-center">
+                <v-scale-transition>
+                  <v-icon
+                    v-if="active"
+                    color="white"
+                    size="48"
+                    @click.stop="toggle"
+                    >
+                  </v-icon>
+                </v-scale-transition>
+              </div>
+            </v-card>
+        </v-hover>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
@@ -52,7 +66,7 @@ export default {
   name : 'UpComingMovieList',
   data(){
     return{
-      upcomingmodel:null,
+      model:null,
     }
   },
   components :{

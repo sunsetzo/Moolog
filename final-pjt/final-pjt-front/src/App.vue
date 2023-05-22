@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <div>
-        <img class="logo" src="@/assets/moolog_light.png" alt="logo" @click="getRandomMovie()" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
+        <img class="logo" src="@/assets/moolog_nobg.png" alt="logo" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
         <RandomMovie/>
       </div>
       <nav>
@@ -181,9 +181,9 @@ export default {
         
       })
     },
-    getRandomMovie(){
-      this.$store.commit('getRandomMovie')
-    }
+    // getRandomMovie(){
+    //   this.$store.commit('getRandomMovie')
+    // }
   }
 }
 </script>
@@ -228,6 +228,7 @@ li a {
   border-radius: 50%;
 }
 .logo{
-  width: 350px;
+  margin: 30px;
+  width: 250px;
 }
 </style>

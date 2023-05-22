@@ -6,7 +6,9 @@ import GameView from '../views/GameView.vue'
 import MyPageView from '../views/MyPageView.vue'
 import ProfileEditView from '../views/ProfileEditView.vue'
 import SignUpView from '../views/SignUpView.vue'
-
+import MovieDetailView from '../views/MovieDetailView.vue'
+import CurrentMovieDetail from '../views/CurrentMovieDetail'
+import UpComingMovieDetail from '../views/UpComingMovieDetail'
 
 Vue.use(VueRouter)
 
@@ -40,6 +42,21 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignUpView
+  },
+  {
+    path: '/movie/detail/:id',
+    name: 'moviedetail',
+    component: MovieDetailView,
+  },
+  {
+    path: '/movie/detail/:id',
+    name: 'currentmovie',
+    component: CurrentMovieDetail
+  },
+  {
+    path: '/movie/detail/:id',
+    name: 'upcomingmovie',
+    component: UpComingMovieDetail
   },
 
 ]
