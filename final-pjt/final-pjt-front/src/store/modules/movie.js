@@ -18,7 +18,7 @@ const movie = {
     showRandomMovie : false,
   },
   getters: {
-    currentMovies : state => state.currentMovie,
+    currentMovies : state => state.currentMovies,
     upcomingMovies : state => state.upcomingMovies,
     Movies : state => state.Movies,
     randomMovie : state => state.randomMovie
@@ -45,7 +45,7 @@ const movie = {
             url: `${API_URL}/api/v1/now_playing_movies/`,
         })
         .then((res)=>{
-            console.log(res, context)
+            // console.log(res, context)
             context.commit('GET_CURRENT_MOVIES', res.data)
         })
         .catch((err)=>{
@@ -55,7 +55,7 @@ const movie = {
     getUpComingMovies(context){
         axios({
             method:'get',
-            url:`$API_URL`
+            url:`${API_URL}/api/v1/upcoming_movies/`
         })
         .then((res)=>{
             console.log(res)
