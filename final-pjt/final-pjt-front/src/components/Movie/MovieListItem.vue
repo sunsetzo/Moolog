@@ -1,14 +1,20 @@
 <template>
   <div>
-    <div class="card h-100" @mouseenter="showButton" @mouseleave="hideButton">
-      <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" class="card-img-top position-relative" alt="movie_poster">
-      <h5 class="position-absolute" style="left: 50%; transform: translateX(-50%);"
-      v-show="isVisible"
-      >{{ movie.title }}</h5>
-      <button class="btn btn-primary position-absolute top-50 start-50 translate-middle"
-      v-show="isVisible" style="transform: translateX(-50%);"
-      >상세보기</button>
-    </div>
+    <v-card
+    color="grey lighten-1"
+    class="ma-4"
+    height="100%"
+    width="100%"
+    @mouseenter="showInfo" @mouseleave="hideInfo">
+      <v-img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="current_movie_poster" 
+      :class="{ imgJanela: isVisible, hoverIMG : isVisible}"></v-img>
+      <!-- <h5 class="" v-if="isVisible">{{ movie.title }}</h5> -->
+      <v-btn variant="outlined" size="large" 
+      class="position-absolute top-50 start-50 translate-middle"
+      v-show="isVisible">
+      상세보기
+      </v-btn>
+    </v-card>
   </div>
 </template>
 
@@ -27,10 +33,10 @@ export default {
     }
   },
   methods: {
-    showButton() {
+    showInfo() {
       this.isVisible = true
     },
-    hideButton() {
+    hideInfo() {
       this.isVisible = false
     }
   }
@@ -38,12 +44,13 @@ export default {
 }
 </script>
 
-<style>
-  img {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-  h5 {
-    color: white;
-  }
+<style scoped>
+.imgJanela{
+    transform: scale(1.1);
+}
+
+.hoverIMG{
+  -webkit-filter: grayscale(100%) blur(3px);
+  filter: grayscale(100%) blur(3px);
+}
 </style>

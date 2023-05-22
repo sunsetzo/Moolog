@@ -30,6 +30,7 @@ class NowPlayingMovieReviewSerializer(serializers.ModelSerializer):
 
 
 class NowPlayingMovieSerializer(serializers.ModelSerializer):
+    nowplayingreview_set = NowPlayingMovieReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = NowPlayingMovie
@@ -58,6 +59,7 @@ class UpcomingMovieReviewSerializer(serializers.ModelSerializer):
 
 
 class UpcomingMovieSerializer(serializers.ModelSerializer):
+    upcomingreview_set = UpcomingMovieReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = UpcomingMovie
@@ -85,6 +87,7 @@ class PopularMovieReviewSerializer(serializers.ModelSerializer):
 
 
 class PopularMovieSerializer(serializers.ModelSerializer):
+    popularreview_set = PopularMovieReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = PopularMovie
