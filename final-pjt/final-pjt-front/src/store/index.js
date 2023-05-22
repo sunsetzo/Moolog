@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import router from '@/router'
+import InfiniteLoading from 'vue-infinite-loading'
 
 import login from './modules/login.js'
 import profileedit from './modules/profileedit.js'
@@ -13,6 +14,7 @@ import movie from './modules/movie.js'
 const API_URL = 'http://127.0.0.1:8000'
 
 Vue.use(Vuex)
+Vue.use(InfiniteLoading)
 
 export default new Vuex.Store({
   plugins:[createPersistedState()],
