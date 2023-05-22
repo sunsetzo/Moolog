@@ -8,12 +8,14 @@
     @mouseenter="showInfo" @mouseleave="hideInfo">
       <v-img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="current_movie_poster" 
       :class="{ imgJanela: isVisible, hoverIMG : isVisible}"></v-img>
-      <!-- <h5 class="" v-if="isVisible">{{ movie.title }}</h5> -->
-      <v-btn variant="outlined" size="large" 
-      class="position-absolute top-50 start-50 translate-middle"
-      v-show="isVisible">
-      상세보기
-      </v-btn>
+      <div class="position-absolute top-50 start-50 translate-middle">
+        <h6 class="" v-if="isVisible">{{ movie.title }}</h6>
+        <v-btn outlined large elevation="7" color="#FFFFFF"
+        v-show="isVisible">
+          <span class="me-1">상세보기</span>
+          <v-icon small>fas fa-search</v-icon>
+        </v-btn>
+      </div>
     </v-card>
   </div>
 </template>
