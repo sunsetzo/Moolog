@@ -29,9 +29,5 @@ urlpatterns = [
     path('popular_movies/<int:movie_id>/likes/', views.popular_movies_likes),
 
     # 추천 영화
-    # path('recommend_movies/', views.recommend_movie_list),
-    # path('recommend_movies/<int:movie_id>/', views.recommend_movie_detail),
-    # path('recommend_movies/reviews/', views.recommend_movie_review_list),
-    # path('recommend_movies/reviews/<int:review_pk>/', views.recommend_movie_review_detail),
-    # path('recommend_movies/<int:movie_id>/reviews/', views.recommend_movie_review_create),
+    path('recommend_movies/', views.recommend_movie_list),
 ]
