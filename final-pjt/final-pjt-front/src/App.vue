@@ -2,7 +2,7 @@
   <div id="app">
     <header>
       <div>
-        <img src="" alt="logo" @click="getRandomMovie()" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
+        <img class="logo" src="@/assets/moolog_light.png" alt="logo" @click="getRandomMovie()" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
         <RandomMovie/>
       </div>
       <nav>
@@ -16,7 +16,8 @@
         2) 로그인이 되어 있으면 프로필 수정 및 로그아웃 버튼-->
         <div v-show="isLogin" >
           <div class="main-profile">
-            <img :src="profileImg" alt="profileImg" class="main-profile-img">
+            <img v-if="profileImg" :src="profileImg" alt="profileImg" class="main-profile-img">
+            <img v-else src="@/assets/user_img.png" alt="profileImg" class="main-profile-img">
             <p>반갑슈 {{ nickname }}</p>
           </div>
           <div class="dropdown">
@@ -129,9 +130,6 @@ export default {
       return this.userInfo.nickname
     },
     profileImg(){
-      if (!this.userInfo.user_image){
-        return 'http://127.0.0.1:8000/media/profile_images/user_img.png'
-      }
       return this.userInfo.user_image
     }
   },
@@ -228,5 +226,8 @@ li a {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+}
+.logo{
+  width: 350px;
 }
 </style>

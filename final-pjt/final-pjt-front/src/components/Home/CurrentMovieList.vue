@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3>현재 상영작</h3>
+    <h2>현재 상영작</h2>
     <v-sheet
       class="mx-auto"
       elevation="8"
-      max-width="800"
+      max-width="1950"
     >
       <v-slide-group
         v-model="model"
@@ -18,29 +18,28 @@
           v-slot="{ active, toggle }"
         >
           <v-card
+            color="grey lighten-1"
             class="ma-4"
-            height="300"
-            width="200"
-            :class="{ 'bg-success': active }"
+            height="460"
+            width="310"
+            :class="{ 'bg-dark': active }"
             @click="toggle"
           >
-            <v-img
-              v-if="movie.poster_path"
-              :src="posterURL"
-              aspect-ratio="1.5"
-              :class="{ 'pointer': active }"
-              @click.stop="toggle"
-            ></v-img>
-            <v-scale-transition>
-              <v-icon
-                v-if="active"
-                color="white"
-                size="48"
-                @click.stop="toggle"
-              >
-                mdi-close-circle-outline
-              </v-icon>
-            </v-scale-transition>
+          <v-img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="current_movie_poster" class="currentMoviePoster imgJanela hoverIMG"
+          >
+          </v-img>
+            <div class="d-flex fill-height align-center justify-center">
+              <v-scale-transition>
+                <v-icon
+                  v-if="active"
+                  color="white"
+                  size="48"
+                  @click.stop="toggle"
+                >
+                  mdi-close-circle-outline
+                </v-icon>
+              </v-scale-transition>
+            </div>
           </v-card>
         </v-slide-item>
       </v-slide-group>
@@ -49,40 +48,51 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: 'CurrentMovieList',
+  name : 'CurrentMovieList',
   data() {
     return {
-      model: Array.from({ length: 6 }, (_, i) => i), // 초기에 active된 항목이 6개인 배열로 설정
-      moviePosterUrl : 'https://www.themoviedb.org/t/p/w300_and_h450_bestv2'
+      model: null,
     };
   },
-  computed: {
-    currentMovies() {
-      return this.$store.getters.CurrentMovies;
-    },
-    posterURL() {
-            return this.moviePosterUrl + this.movie.poster_path
-        }
-
+  computed:{
+    ...mapGetters(['currentMovies']),
+    currentMoviePosetURL(){
+      return this.currentMovies
+    }
   },
-  created() {
-    this.getCurrentMovies();
+  created(){
+    this.getCurrentMovies()
   },
-  methods: {
-    getCurrentMovies() {
-      this.$store.dispatch('getCurrentMovies');
-    },
-    // getImageUrl(posterPath) {
-    //   console.log(posterPath)
-    //   return `https://image.tmdb.org/t/p/w500${posterPath}`;
-    // }
+  methods:{
+    getCurrentMovies(){
+      this.$store.dispatch('getCurrentMovies')
+    }
   }
+
 };
 </script>
 
-<style>
-.pointer {
-  cursor: pointer;
+<style scoped>
+.currentMoviePoster{
+  width: 300px;
+  height: 450px;
+  padding: 10px;
+  margin-left: 5px;
+}
+.imgJanela:hover {
+    transform: scale(1.1);
+}
+.hoverIMG{
+  -webkit-filter: grayscale(0) blur(0);
+  filter: grayscale(0) blur(0);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.hoverIMG:hover{
+  -webkit-filter: grayscale(100%) blur(3px);
+  filter: grayscale(100%) blur(3px);
 }
 </style>
