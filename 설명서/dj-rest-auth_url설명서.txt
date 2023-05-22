@@ -50,9 +50,9 @@ Authorization: 'Token 토큰값'
 
 
 
-rye : 745a6db24bd4bf0d0fd529471695545cb7839d7c
-temp : df3d277c742b8849c1b690b71b56aa1b43fb5086
-zeze: 3ac71ec71acdb30ea6df65eee7ae04f77489195b
+rye : faff48f58ef2567ce2a69ffeacd2167066c5015a
+temp : 39e53fb1c2a832490f87dd643d29beda8c98aa99
+zeze: b758b4044938337a9996f59d293506d972509f45
 
 구글 OAuth 
 client_id : 128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com
