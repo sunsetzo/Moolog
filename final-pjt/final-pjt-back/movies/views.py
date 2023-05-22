@@ -60,11 +60,24 @@ def now_playing_movie_review_detail(request, review_pk):
 @permission_classes([IsAuthenticated])
 def now_playing_movie_review_create(request, movie_id):
     movie = get_object_or_404(NowPlayingMovie, pk=movie_id)
-    print(movie)
     serializer = NowPlayingMovieReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user, movie=movie)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+
+# 현재 상영작 좋아요
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def now_playing_movies_likes(request, movie_id):
+    movie = get_object_or_404(NowPlayingMovie, pk=movie_id)
+    if movie.like_users.filter(pk=request.user.pk).exists():
+        movie.like_users.remove(request.user)
+    else:
+        movie.like_users.add(request.user)
+    
+    serializer = NowPlayingMovieSerializer(movie)
+    return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
     
 
 # 개봉 예정작
@@ -121,6 +134,20 @@ def upcoming_movie_review_create(request, movie_id):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 
+# 개봉 예정작 좋아요
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def upcoming_movies_likes(request, movie_id):
+    movie = get_object_or_404(UpcomingMovie, pk=movie_id)
+    if movie.like_users.filter(pk=request.user.pk).exists():
+        movie.like_users.remove(request.user)
+    else:
+        movie.like_users.add(request.user)
+    
+    serializer = UpcomingMovieSerializer(movie)
+    return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    
+
 # 인기 영화
 @api_view(['GET'])
 def popular_movie_list(request):
@@ -173,3 +200,17 @@ def popular_movie_review_create(request, movie_id):
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=request.user, movie=movie)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+
+# 인기영화 좋아요
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def popular_movies_likes(request, movie_id):
+    movie = get_object_or_404(PopularMovie, pk=movie_id)
+    if movie.like_users.filter(pk=request.user.pk).exists():
+        movie.like_users.remove(request.user)
+    else:
+        movie.like_users.add(request.user)
+    
+    serializer = PopularMovieSerializer(movie)
+    return Response(serializer.data, status=status.HTTP_202_ACCEPTED)

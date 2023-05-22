@@ -34,6 +34,8 @@ class NowPlayingMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = NowPlayingMovie
         fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
+
 
 
 # 개봉 예정작
@@ -60,6 +62,7 @@ class UpcomingMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = UpcomingMovie
         fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
 
 
 # 인기 영화
@@ -86,3 +89,4 @@ class PopularMovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = PopularMovie
         fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
