@@ -4,14 +4,11 @@
       <!-- 영화 포스터 및 타이틀 -->
     <div>
     <div>
-        <img src="" alt="포스터 이미지">
+        <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie?.poster_path}`" alt="포스터 이미지">
     </div>
     <div>
         <div>
-        <p>별점?</p>
-        </div>
-        <div>
-        영화 상세 정보
+            줄거리 : {{ movie?.overview }}
         </div>
     </div>
     </div>
@@ -22,6 +19,7 @@
     <!-- 영화 리뷰 -->
     <div>
     영화 리뷰
+    <p v-for="review in reviews" :key="review.id">{{ review.content }}</p>
     <MovieReview/>
     </div>
 </div>
@@ -39,7 +37,8 @@ components:{
 },
 data(){
     return{
-        movie : []
+        movie : [],
+        reviews : []
     }
 },
 created(){
@@ -53,6 +52,7 @@ methods:{
         })
         .then((res)=>{
             console.log(res)
+            this.reviews = res.data.popularreview_set
             this.movie = res.data
         })
         .catch((err)=>{

@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ moviereview }}
     </div>
 </template>
 
@@ -23,7 +22,7 @@ export default {
     methods:{
         getMovieDetail(){
             axios({
-                methods:'get',
+                methods:'post',
                 url:`${API_URL}/now_playing_movies/${this.$route.params.id}/reviews/`,
             })
             .then((res)=>{

@@ -13,6 +13,8 @@
                 <img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${randomMovie[0].poster_path}`" alt="">
                 <br>
                 {{ randomMovie[0].title }}
+                <br>
+                <button class="btn btn-secondary" @click="getRandomMovie">RanDom!</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
