@@ -8,7 +8,14 @@
     </div>
     <div>
         <div>
-        줄거리 : {{ movie?.overview }}
+        <span>줄거리 : {{ movie?.overview }}</span>
+        </div>
+        <div>
+            <!-- 영화 좋아요 -->
+            <button @click="likeMovie">
+                {{ isLike && myLike ? '좋아요 취소' : '좋아요'}} </button>
+            <br>
+            <span>좋아요 수 : {{ movie?.like_users.length }}</span>
         </div>
     </div>
     </div>
@@ -20,7 +27,12 @@
     <!-- 영화 리뷰 -->
     <div>
     영화 리뷰
-    <p v-for="review in reviews" :key="review.id">{{ review.content }}</p>
+    <p v-for="(review, idx) in reviews" :key="idx">
+        <span>별점 : {{ review.rate }}</span>
+        <br>
+        <span>{{ review.content }}</span>
+    </p>
+    
     <CurrentMovieReview/>
     </div>
 </div>
@@ -30,8 +42,8 @@
 import CurrentMovieReview from '../components/Movie/CurrentMovieReview.vue'
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000/api/v1'
-const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
-const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
+// const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
+// const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
 
 export default {
 name : 'CurrentMovieDetail',
@@ -45,55 +57,72 @@ data(){
         title : null,
         MovieTrailer : null,
         videoURL : null,
+        myLike : false,
+        isLike : false
     }
 },
-created(){
-    this.getMovieDetail()
-    // this.getMovieTrailer()
-},
 computed:{
-    // videoURL(){
-    //     const videoId = this.MovieTrailer.id.videoId
-    //     return `https://youtube.com/embed/${videoId}`
+    // myLike(){
+    //     return
     // }
-},  
+},
+mounted(){
+    this.getMovieDetail()
+},
 methods:{
     getMovieDetail(){
         axios({
             methods:'get',
-            url:`${API_URL}/now_playing_movies/${this.$route.params.id}`
+            url:`${API_URL}/now_playing_movies/${this.$route.params.id}/`
         })
         .then((res)=>{
-            // console.log(res)
+            console.log(res)
             this.movie = res.data
             this.reviews = res.data.nowplayingreview_set
-            this.title = res.data.title
+            this.title = res.data.title + 'trailer'
             // console.log(this.movie)
-            this.getMovieTrailer()
+            // this.getMovieTrailer()
         })
         .catch((err)=>{
             console.log('getMovieDetail err', err)
         })
     },
-    getMovieTrailer(){
-        const params = {
-            key : YOUTUBE_KEY,
-            part : 'snippet',
-            type:'video',
-            q : this.title
-        }
+    // getMovieTrailer(){
+    //     const params = {
+    //         key : YOUTUBE_KEY,
+    //         part : 'snippet',
+    //         type:'video',
+    //         q : this.title
+    //     }
+    //     axios({
+    //         method:'get',
+    //         url:YOUTUBE_URL,
+    //         params,
+    //     })
+    //     .then(res=>{
+    //         console.log(res)
+    //         this.MovieTrailer = res.data.items[0]
+    //         console.log(this.MovieTrailer)
+    //         this.videoURL = `https://youtube.com/embed/${this.MovieTrailer.id.videoId}`
+    //     })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
+    // },
+    likeMovie(){
+        const token = this.$store.state.login.token
         axios({
-            method:'get',
-            url:YOUTUBE_URL,
-            params,
+            method:'post',
+            url : `${API_URL}/now_playing_movies/${this.$route.params.id}/likes/`,
+            headers:{
+                Authorization: `Token ${token}`
+            }
         })
-        .then(res=>{
+        .then((res)=>{
             console.log(res)
-            this.MovieTrailer = res.data.items[0]
-            console.log(this.MovieTrailer)
-            this.videoURL = `https://youtube.com/embed/${this.MovieTrailer.id.videoId}`
+            this.isLike = !this.isLike
         })
-        .catch(err=>{
+        .catch((err)=>{
             console.log(err)
         })
     }

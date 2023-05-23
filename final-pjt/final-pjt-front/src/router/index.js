@@ -7,8 +7,10 @@ import MyPageView from '../views/MyPageView.vue'
 import ProfileEditView from '../views/ProfileEditView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import MovieDetailView from '../views/MovieDetailView.vue'
-import CurrentMovieDetail from '../views/CurrentMovieDetail'
-import UpComingMovieDetail from '../views/UpComingMovieDetail'
+import CurrentMovieDetail from '../views/CurrentMovieDetail.vue'
+import UpComingMovieDetail from '../views/UpComingMovieDetail.vue'
+
+import SearchResult from '../components/Search/SearchResult.vue'
 
 Vue.use(VueRouter)
 
@@ -57,6 +59,11 @@ const routes = [
     path: '/movie/detail/:id',
     name: 'upcomingmovie',
     component: UpComingMovieDetail
+  },
+  {
+    path: '/movie/search',
+    name: 'search',
+    component: SearchResult
   },
 
 ]

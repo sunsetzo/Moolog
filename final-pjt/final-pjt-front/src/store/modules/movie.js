@@ -21,7 +21,8 @@ const movie = {
     currentMovies : state => state.currentMovies,
     upcomingMovies : state => state.upcomingMovies,
     Movies : state => state.Movies,
-    randomMovie : state => state.randomMovie
+    randomMovie : state => state.randomMovie,
+    allMovies : state => state.allMovies
   },
   mutations: {
     GET_CURRENT_MOVIES(state, movies){
@@ -36,7 +37,18 @@ const movie = {
     getRandomMovie(state){
         state.randomMovie = sampleSize(state.Movies, 1)
         state.showRandomMovie = true
-    }
+    },
+    // GET_ALL_MOVIES(state){
+    //     state.currentMovies.forEach((el)=>{
+    //         state.allMovies.push(el)
+    //     })
+    //     state.upcomingMovies.forEach((el)=>{
+    //         state.allMovies.push(el)
+    //     })
+    //     state.Movies.forEach((el)=>{
+    //         state.allMovies.push(el)
+    //     })
+    // }
   },
   actions: {
     getCurrentMovies(context){

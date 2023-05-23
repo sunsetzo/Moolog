@@ -120,6 +120,8 @@ export default {
     if (this.isLogin) {
       this.loginuser = this.$store.state.user.nickname
   }
+  this.getMovie()
+  // this.getAllMoivie()
 },
   computed : {
     ... mapGetters(['userInfo']),
@@ -171,6 +173,12 @@ export default {
       this.$store.dispatch('getUser')
       // console.log(currentUser)
       // this.loginuser = this.currentUser.nickname
+    },
+    getMovie(){
+      this.$store.dispatch('getMovies')
+    },
+    getAllMoivie(){
+      this.$store.commit('GET_ALL_MOVIES')
     },
     // google
     onSuccess(googleUser){

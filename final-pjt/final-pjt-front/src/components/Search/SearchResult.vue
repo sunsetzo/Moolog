@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SerchResultList/>
+    <SearchResultList/>
   </div>
 </template>
 

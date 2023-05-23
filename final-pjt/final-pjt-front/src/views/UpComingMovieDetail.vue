@@ -14,7 +14,8 @@
       </div>
       <!-- 영화 예고편 영상 -->
       <div>
-      영화 예고편 유튜브 api
+      영화 예고편 유튜브
+      <iframe :src="videoURL" frameborder="0" width="500px" height="300px"></iframe>
       </div>
       <!-- 영화 리뷰 -->
       <div>
@@ -28,6 +29,8 @@
 import UpComingMovieReview from '../components/Movie/UpComingMovieReview.vue'
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000/api/v1'
+// const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
+// const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
 
 export default {
     name:'UpComingMovieDetail',
@@ -37,7 +40,10 @@ export default {
     data(){
         return{
             movie : [],
-            reviews:[]
+            reviews:[],
+            title : null,
+            MovieTrailer : null,
+            videoURL : null,
         }
     },
     created(){
@@ -57,7 +63,30 @@ export default {
             .catch((err)=>{
                 console.log('getMovieDetail err', err)
             })
-        }
+        },
+    //     getMovieTrailer(){
+    //     const params = {
+    //         key : YOUTUBE_KEY,
+    //         part : 'snippet',
+    //         type:'video',
+    //         q : this.title
+    //     }
+    //     axios({
+    //         method:'get',
+    //         url:YOUTUBE_URL,
+    //         params,
+    //     })
+    //     .then(res=>{
+    //         console.log(res)
+    //         this.MovieTrailer = res.data.items[0]
+    //         console.log(this.MovieTrailer)
+    //         this.videoURL = `https://youtube.com/embed/${this.MovieTrailer.id.videoId}`
+    //     })
+    //     .catch(err=>{
+    //         console.log(err)
+    //     })
+    // }
+
     }
 }
 </script>
