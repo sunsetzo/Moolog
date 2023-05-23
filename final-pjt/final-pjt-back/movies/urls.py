@@ -22,6 +22,7 @@ urlpatterns = [
 
     # 인기작
     path('popular_movies/', views.popular_movie_list),
+    path('popular_movies/scroll/<int:page_pk>/', views.popular_movie_scroll),
     path('popular_movies/<int:movie_id>/', views.popular_movie_detail),
     path('popular_movies/reviews/', views.popular_movie_review_list),
     path('popular_movies/reviews/<int:review_pk>/', views.popular_movie_review_detail),

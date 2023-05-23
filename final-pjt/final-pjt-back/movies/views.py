@@ -169,6 +169,19 @@ def popular_movie_review_list(request):
     serializer = PopularMovieReviewSerializer(reviews, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def popular_movie_scroll(request, page_pk):
+    movies = get_list_or_404(PopularMovie)
+
+    page_size, cnt = 12, 0
+    s_idx = page_pk * page_size
+    e_idx = s_idx + page_size
+    page_movies = movies[s_idx:e_idx]
+
+    serializer = PopularMovieListSerializer(page_movies, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 
 # 인기 영화 리뷰 조회, 삭제, 수정
 @api_view(['GET', 'DELETE', 'PUT'])
