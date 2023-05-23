@@ -1,5 +1,6 @@
 <template>
-    <div class="puzzle" :class="{'quake': alertFlag}">
+  <div class="puzzle-container">
+    <div class="puzzle mt-5 d-flex" :class="{'quake': alertFlag}">
         <div class="hint-button" @click.stop="hintClick">Hint 버튼 (남은 힌트 횟수 : {{hintCnt}}번)</div>
         <puzzle-piece v-for="(puz, idx) in puzzleInfo" :key="idx" :img="currentIdx" :info="puz" :style="pieceStyle(idx)"/>
         <div class="left-btn" @click="move(-1)">
@@ -11,9 +12,55 @@
         <div class="hint-image" :class="[this.showFlag? 'hint-' + this.currentIdx : '', {'unfold' : this.hintFlag}]"
             :style="hintStyle"
         ></div>
-        <span class="guide-message">방향키를 움직여서 퍼즐을 맞춰주세요 :)</span>
         <div class="alert-message" v-show="alertFlag">아직 다음 레벨로 넘어갈 수 없습니다.</div>
+        <div id="app">
+        <!-- <v-app id="inspire">
+            <v-row justify="center">
+            <v-dialog
+                v-model="dialog"
+                persistent
+                max-width="290"
+            >
+                <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                    Open Dialog
+                </v-btn>
+                </template>
+                <v-card>
+                <v-card-title class="text-h5">
+                    Use Google's location service?
+                </v-card-title>
+                <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog = false"
+                    >
+                    Disagree
+                    </v-btn>
+                    <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog = false"
+                    >
+                    Agree
+                    </v-btn>
+                </v-card-actions>
+                </v-card>
+            </v-dialog>
+            </v-row>
+        </v-app> -->
+        </div>
     </div>
+  </div>
+    
 </template>
 
 <script>
@@ -39,6 +86,7 @@ export default {
     data() {
         return {
             currentIdx: 1,
+            infoFlag: true,
             alertFlag : false,
             hintFlag : false,
             showFlag : false,
@@ -186,7 +234,7 @@ export default {
             })
             this.possibleNext[this.currentIdx + 1] = passFlag;
         }
-    }
+    },
 }
 </script>
 
@@ -205,7 +253,9 @@ export default {
 }
 .hint-button{
     position: absolute;
-    top: -40px; left: 0;
+    top: -40px;
+    right: -2px;
+    z-index: 1;
     background-color: #64B5F6;
     border-radius: 10px;
     padding: 4px 12px;
@@ -218,8 +268,8 @@ export default {
     position: absolute; bottom: -28px; right: 0; font-weight: bold; color: #333;
 }
 .alert-message{
-    position: absolute; left: 60px; top:40%; font-weight: bold; font-size: 28px;
-    color: #6A1B9A; box-shadow: 0 0 10px 10px white; background-color: white;
+    position: absolute; left: 60px; top:45%; font-weight: bold; font-size: 28px;
+    color: rgb(216, 72, 72); box-shadow: 0 0 20px 20px white; background-color: white;
 }
 .left-btn, .right-btn {
     position: fixed;
@@ -275,6 +325,18 @@ export default {
     width: 600px; height: 0;
     transition: height 2s;
     &.unfold{height: 800px;transition: height 2s;}
+}
+
+.puzzle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 화면 세로 중앙 정렬을 위한 높이 설정 */
+}
+
+.info-message {
+    position: absolute; left: 60px; top:45%; font-weight: bold; font-size: 28px;
+    color: rgb(0, 60, 170); box-shadow: 0 0 20px 20px white; background-color: white;
 }
 
 </style>

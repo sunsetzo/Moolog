@@ -17,7 +17,6 @@
           <span class="me-1">상세보기</span>
           <v-icon small>fas fa-search</v-icon>
         </v-btn></router-link>
-        
       </div>
     </v-card>
   </div>
@@ -25,12 +24,9 @@
 
 <script>
 export default {
-  name:'MovieListItem',
-  props:{
+  name: 'SearchResultItem',
+  props: {
     movie: Object,
-  },
-  components: {
-
   },
   data() {
     return {
@@ -44,8 +40,7 @@ export default {
     hideInfo() {
       this.isVisible = false
     }
-  }
-
+  },
 }
 </script>
 
@@ -58,6 +53,4 @@ export default {
   -webkit-filter: grayscale(100%) blur(3px);
   filter: grayscale(100%) blur(3px);
 }
-
-
 </style>

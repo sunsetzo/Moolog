@@ -11,6 +11,7 @@ import CurrentMovieDetail from '../views/CurrentMovieDetail.vue'
 import UpComingMovieDetail from '../views/UpComingMovieDetail.vue'
 
 import SearchResult from '../components/Search/SearchResult.vue'
+import SearchResultRe from '../components/Search/SearchResultRe.vue'
 
 Vue.use(VueRouter)
 
@@ -61,9 +62,16 @@ const routes = [
     component: UpComingMovieDetail
   },
   {
-    path: '/movie/search',
+    path: '/movie/search/',
     name: 'search',
-    component: SearchResult
+    component: SearchResult,
+    props: (route) => ({ SearchResult: route.query.SearchResult })
+  },
+  {
+    path: '/movie/search_re/',
+    name: 'search_re',
+    component: SearchResultRe,
+    props: (route) => ({ SearchResult: route.query.SearchResult })
   },
 
 ]
