@@ -8,10 +8,12 @@
     @mouseenter="showInfo" @mouseleave="hideInfo">
       <v-img :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="current_movie_poster" 
       :class="{ imgJanela: isVisible, hoverIMG : isVisible}"></v-img>
-      <div class="position-absolute top-50 start-50 translate-middle">
-        <h6 class="" v-if="isVisible">{{ movie.title }}</h6>
-        <v-btn outlined large elevation="7" color="#FFFFFF"
-        v-show="isVisible">
+      <div class="position-absolute top-50 start-50 translate-middle w-100" v-show="isVisible">
+        <p style="color:white;">{{ movie.title }}</p>
+        <div>
+          <i class="fa-solid fa-star mb-3" style="color: #ff6a38;"><span>  평점</span></i>
+        </div>
+        <v-btn outlined large elevation="7" color="#FFFFFF">
           <span class="me-1">상세보기</span>
           <v-icon small>fas fa-search</v-icon>
         </v-btn>
@@ -55,4 +57,6 @@ export default {
   -webkit-filter: grayscale(100%) blur(3px);
   filter: grayscale(100%) blur(3px);
 }
+
+
 </style>
