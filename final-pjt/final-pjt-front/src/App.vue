@@ -2,7 +2,6 @@
   <div id="app">
     <header>
       <div>
-        <img class="logo" src="@/assets/moolog_nobg.png" alt="logo" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
         <RandomMovie/>
       </div>
       <nav>
@@ -82,8 +81,7 @@
                 </div>
               </div>
             </div>
-          </div>
-          
+          </div>    
       </div>
     </header>
     <router-view @editProfile="getNickname"/>
@@ -111,6 +109,7 @@ export default {
       loginuser : '',
       email : null,
       // google-login
+      openModal : false,
       showRandomMovie : this.$store.state.movie.showRandomMovie,
     }
   },
@@ -207,7 +206,7 @@ body, html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
   background-color: black;
 }
 header{
@@ -221,11 +220,11 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: rgba(255, 255, 255, 0.74);
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #4DD0E1;
 }
 li {
   list-style : none;

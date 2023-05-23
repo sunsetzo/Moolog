@@ -1,7 +1,39 @@
 <template>
   <div class="puzzle-container">
+    <v-app id="inspire">
+        <v-dialog
+            v-model="dialog"
+            transition="dialog-top-transition"
+            max-width="600"
+        >
+        <template v-slot:default="dialog">
+        <v-card>
+            <v-toolbar
+            color="#4DD0E1"
+            dark
+            class="text-h6"
+            >퍼즐 게임 설명</v-toolbar>
+            <v-card-text>
+            <div class="pt-15" style="font-size:15px;">방향키를 이용해서 포스터를 맞춰주세요.
+                <p>총 3단계로 구성되어있습니다.</p>
+            </div>
+            </v-card-text>
+            <v-card-actions class="justify-end">
+            <v-btn
+                text
+                @click="dialog.value = false"
+            >OK</v-btn>
+            </v-card-actions>
+            </v-card>
+        </template>
+      </v-dialog>
+    </v-app>
     <div class="puzzle mt-5 d-flex" :class="{'quake': alertFlag}">
-        <div class="hint-button" @click.stop="hintClick">Hint 버튼 (남은 힌트 횟수 : {{hintCnt}}번)</div>
+        <v-btn class="hint-button" style="color:white; background-color: #4DD0E1;"
+        @mouseover="hover = true"
+        @mouseleave="hover = false"
+        :style="{ backgroundColor: hover ? 'white' : '#4DD0E1', color: hover ? '#4DD0E1' : 'white' }" 
+        @click.stop="hintClick">Hint {{hintCnt}}번</v-btn>
         <puzzle-piece v-for="(puz, idx) in puzzleInfo" :key="idx" :img="currentIdx" :info="puz" :style="pieceStyle(idx)"/>
         <div class="left-btn" @click="move(-1)">
             <div class="arrow"></div>
@@ -13,51 +45,6 @@
             :style="hintStyle"
         ></div>
         <div class="alert-message" v-show="alertFlag">아직 다음 레벨로 넘어갈 수 없습니다.</div>
-        <div id="app">
-        <!-- <v-app id="inspire">
-            <v-row justify="center">
-            <v-dialog
-                v-model="dialog"
-                persistent
-                max-width="290"
-            >
-                <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                    Open Dialog
-                </v-btn>
-                </template>
-                <v-card>
-                <v-card-title class="text-h5">
-                    Use Google's location service?
-                </v-card-title>
-                <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                    color="green darken-1"
-                    text
-                    @click="dialog = false"
-                    >
-                    Disagree
-                    </v-btn>
-                    <v-btn
-                    color="green darken-1"
-                    text
-                    @click="dialog = false"
-                    >
-                    Agree
-                    </v-btn>
-                </v-card-actions>
-                </v-card>
-            </v-dialog>
-            </v-row>
-        </v-app> -->
-        </div>
     </div>
   </div>
     
@@ -85,6 +72,8 @@ export default {
     },
     data() {
         return {
+            hover: false,
+            dialog: true,
             currentIdx: 1,
             infoFlag: true,
             alertFlag : false,
@@ -256,12 +245,10 @@ export default {
     top: -40px;
     right: -2px;
     z-index: 1;
-    background-color: #64B5F6;
+    font-weight: bold;
     border-radius: 10px;
     padding: 4px 12px;
     cursor: pointer;
-    &:hover{background-color: #1976D2; color: white;font-weight: bold;}
-    &:active{background-color: #0D47A1; }
 }
 
 .guide-message{
