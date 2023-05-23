@@ -30,6 +30,7 @@
     <div>
     영화 리뷰
     <p v-for="(review, idx) in reviews" :key="idx">
+        <span><router-link :to="{name:'userprofile', params:{userid:review.user}} ">작성자 : {{ review.nickname }}</router-link></span>
         <span>별점 : {{ review.rate }}</span>
         <br>
         <span>{{ review.content }}</span>
@@ -88,7 +89,6 @@ methods:{
             }
             else{
                 this.isMyLike = true
-                this.isLike = true
             }
         })
         .catch((err)=>{

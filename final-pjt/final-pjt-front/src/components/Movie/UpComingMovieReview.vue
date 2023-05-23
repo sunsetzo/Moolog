@@ -1,6 +1,12 @@
 <!-- 리뷰 작성 폼 -->
 <template>
     <div>
+        <div v-for="(myReview) in moviereview" :key="myReview.id">
+            <p>별점 : {{ myReview.rate }}</p>
+            <p>{{ myReview.content }}</p>
+            <br>
+            <button class="btn" @click="deleteReview(myReview)">삭제</button>
+        </div>
         <fieldset class="rate">
             <input type="radio" id="rating10" name="rating" value="10" @change="handleRatingChange"><label for="rating10" title="5점"></label>
             <input type="radio" id="rating9" name="rating" value="9" @change="handleRatingChange"><label class="half" for="rating9" title="4.5점"></label>
@@ -45,12 +51,16 @@ export default {
     },
     methods:{
         handleRatingChange() {
-            // 선택된 라디오 버튼의 갯수를 계산하여 변수에 저장
-            this.selectedRatingCount = document.querySelectorAll('input[name="rating"]:checked').length;
+            const selectedRating = document.querySelector('input[name="rating"]:checked');
+            if (selectedRating) {
+                this.selectedRatingCount = selectedRating.value;
+            } else {
+                this.selectedRatingCount = 0;
+            }
         },
         createReview(){
             const content = this.content
-            const rate = this.selectedRatingCount
+            const rate = this.selectedRatingCount / 2
             const token = this.$store.state.login.token
 
             if (!content){
@@ -70,6 +80,7 @@ export default {
             })
             .then((res)=>{
                 console.log(res)
+                this.moviereview.push(res.data)
                 this.content = null
                 const radioButtons = document.getElementsByName('rating');
                 radioButtons.forEach(button => {
@@ -79,7 +90,24 @@ export default {
             .catch((err)=>{
                 console.log(err)
             })
-        }
+        },
+        deleteReview(review){
+            const token = this.$store.state.login.token
+            axios({
+                method:'delete',
+                url:`${API_URL}/upcoming_movies/reviews/${review.id}`,
+                headers:{
+                    Authorization: `Token ${token}`
+                }
+            })
+            .then((res)=>{
+                console.log(res)
+                this.moviereview.splice(res.data.id, 1)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        },
     }
 }
 </script>

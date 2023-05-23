@@ -80,7 +80,7 @@ export default {
       }
 
       if (this.$vuetify.breakpoint.lg) {
-        return 4;
+        return 6;
       }
 
       if (this.$vuetify.breakpoint.md) {

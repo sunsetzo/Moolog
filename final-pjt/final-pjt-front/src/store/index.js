@@ -10,6 +10,7 @@ import profileedit from './modules/profileedit.js'
 import password from './modules/password.js'
 import follow from './modules/follow.js'
 import movie from './modules/movie.js'
+import userprofile from './modules/userprofile.js'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -75,5 +76,6 @@ export default new Vuex.Store({
     password,
     follow,
     movie,
+    userprofile
   }
 })

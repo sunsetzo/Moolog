@@ -44,7 +44,6 @@ export default {
             moviereview : [],
             content : '',
             selectedRatingCount: 0,
-            isEdit : false,
         }
     },
     created(){
@@ -63,7 +62,6 @@ export default {
             const content = this.content
             const rate = this.selectedRatingCount / 2
             const token = this.$store.state.login.token
-            console.log(rate)
 
             if (!content){
                 alert('리뷰를 입력해주세요')

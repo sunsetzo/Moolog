@@ -1,8 +1,8 @@
 <template>
   <div>
     내가 좋아요한 영화
-    <v-app>
-      <v-main>
+    <v-app class="app-container">
+      <v-main class="main-container">
         <v-carousel
         class="carousel-container"
         hide-delimiters>
@@ -87,6 +87,12 @@ export default {
 </script>
 
 <style>
+.app-container {
+  height: 600px; /* 원하는 높이로 설정 */
+}
+.main-container {
+  height: 100%; /* 부모 요소인 v-app의 높이에 맞춤 */
+}
 .carousel-container{
   width: 2000px;
   margin: auto;

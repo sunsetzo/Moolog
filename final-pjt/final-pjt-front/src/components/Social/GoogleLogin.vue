@@ -44,7 +44,7 @@ export default {
   
   created: function() {
     // URL 파라미터에서 code 추출
-    console.log('created 호출')
+    // console.log('created 호출')
     var params = new URLSearchParams(window.location.search);
     var code = params.get('code');
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>현재 상영작</h2>
+    <h2>상영 예정작</h2>
     <v-app class="app-container">
       <v-main class="main-container">
         <v-carousel
@@ -80,7 +80,7 @@ export default {
       }
 
       if (this.$vuetify.breakpoint.lg) {
-        return 4;
+        return 6;
       }
 
       if (this.$vuetify.breakpoint.md) {
