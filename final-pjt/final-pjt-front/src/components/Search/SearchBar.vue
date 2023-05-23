@@ -23,14 +23,18 @@ export default {
   },
   methods:{
     searchMovie(){
+      this.searchResult = []
+
       this.Movies.forEach((movie) => {
         if (movie.title.includes(this.searchInput)) {
           this.searchResult.push(movie)
         }
       })
 
-      this.$router.push({name:'search'}, this.searchResult)
+
+      this.$router.push({name:'search', query: { searchResult: this.searchResult, searchInput: this.searchInput }})
       
+      this.searchInput = ''
     }
   }
 }
