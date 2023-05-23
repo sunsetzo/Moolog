@@ -8,14 +8,16 @@
     </div>
     <div>
         <div>
-        <span>줄거리 : {{ movie?.overview }}</span>
+        <span>줄거리 : {{ movie?.overview }}</span><br>
+        <span>개봉일 : {{ movie?.release_date }}</span><br>
+        장르 : <span v-for="(genre) in genres" :key="genre.id">{{ genre.name }}, </span>
         </div>
         <div>
             <!-- 영화 좋아요 -->
             <button @click="likeMovie">
-                {{ isLike && myLike ? '좋아요 취소' : '좋아요'}} </button>
+                {{ (isLike || isMyLike) ? '좋아요' : '좋아요 취소'}} </button>
             <br>
-            <span>좋아요 수 : {{ movie?.like_users.length }}</span>
+            <span>좋아요 수 : {{ likeUserLength }}</span>
         </div>
     </div>
     </div>
@@ -54,17 +56,14 @@ data(){
     return{
         movie : [],
         reviews : [],
+        genres:[],
         title : null,
         MovieTrailer : null,
         videoURL : null,
-        myLike : false,
-        isLike : false
+        isLike : false,
+        isMyLike : false,
+        likeUserLength : 0,
     }
-},
-computed:{
-    // myLike(){
-    //     return
-    // }
 },
 mounted(){
     this.getMovieDetail()
@@ -76,12 +75,21 @@ methods:{
             url:`${API_URL}/now_playing_movies/${this.$route.params.id}/`
         })
         .then((res)=>{
-            console.log(res)
             this.movie = res.data
             this.reviews = res.data.nowplayingreview_set
             this.title = res.data.title + 'trailer'
-            // console.log(this.movie)
-            // this.getMovieTrailer()
+            // this.getMovieTrailer() //유튜브
+            this.likeUserLength = res.data.like_users.length
+            this.genres = res.data.genres
+            const user_pk = this.$store.state.user.pk
+            if (this.movie.like_users.includes(user_pk)){
+                this.isMyLike = false
+                this.isLike = false
+            }
+            else{
+                this.isMyLike = true
+                this.isLike = true
+            }
         })
         .catch((err)=>{
             console.log('getMovieDetail err', err)
@@ -121,11 +129,16 @@ methods:{
         .then((res)=>{
             console.log(res)
             this.isLike = !this.isLike
+            if (this.isLike === false){
+                this.likeUserLength ++
+            }else{
+                this.likeUserLength --
+            }
         })
         .catch((err)=>{
             console.log(err)
         })
-    }
+    },
 }
 }
 </script>

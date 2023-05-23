@@ -16,8 +16,7 @@
         <router-link :to="{name:'moviedetail', params:{id:movie?.id}}"><v-btn outlined large elevation="7" color="#FFFFFF">
           <span class="me-1">상세보기</span>
           <v-icon small>fas fa-search</v-icon>
-        </v-btn></router-link>
-        
+        </v-btn></router-link>  
       </div>
     </v-card>
   </div>

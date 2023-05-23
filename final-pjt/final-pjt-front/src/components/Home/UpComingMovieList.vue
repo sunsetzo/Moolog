@@ -1,61 +1,60 @@
 <template>
   <div>
-    <h2>상영 예정 영화</h2>
-    <v-sheet
-      class="mx-auto"
-      elevation="8"
-      max-width="1950"
-      color="black"
-    >
-      <v-slide-group
-        color="white"
-        v-model="model"
-        class="pa-4"
-        selected-class="bg-success"
-        prev-icon="mdi-minus"
-        next-icon="mdi-plus"
-        show-arrows
-      >
-        <v-slide-item
-          v-for="movie in upcomingMovies"
-          :key="movie.id"
-          v-slot="{ active, toggle }">
-          <v-hover v-slot="{ hover }">
-            <v-card
-              color="black"
-              class="mx-auto my-auto"
-              height="460"
-              width="310"
-              :class="{ 'bg-dark': active }"
-              @click="toggle"
+    <h2>현재 상영작</h2>
+    <v-app class="app-container">
+      <v-main class="main-container">
+        <v-carousel
+          class="carousel-container"
+          hide-delimiters
+        >
+          <template v-for="(item, index) in upcomingMovies">
+            <v-carousel-item
+              v-if="(index + 1) % columns === 1 || columns === 1"
+              :key="index"
+              @mouseenter="showInfo(index)"
+              @mouseleave="hideInfo(index)"
             >
-            
-            <v-img
-            :aspect-ratio="3/4"
-            :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="current_movie_poster" 
-            class="imgJanela hoverIMG">
-            </v-img>
-            <v-btn v-if="hover"
-            center
-              elevation="6">
-              <router-link :to="{name:'upcomingmovie', params:{id:movie?.id}}">상세보기</router-link>
-              </v-btn>
-              <div class="d-flex fill-height align-center justify-center">
-                <v-scale-transition>
-                  <v-icon
-                    v-if="active"
-                    color="white"
-                    size="48"
-                    @click.stop="toggle"
+              <v-row class="flex-nowrap" style="height: 100%">
+                <template v-for="(n, i) in columns">
+                  <v-col :key="i">
+                    <v-sheet
+                      v-if="(+index + i) < upcomingMovies.length"
                     >
-                  </v-icon>
-                </v-scale-transition>
-              </div>
-            </v-card>
-        </v-hover>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet>
+                      <v-row class="fill-height" align="center" justify="center">
+                        <div class="position-relative">
+                          <v-img
+                            :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${upcomingMovies[+index + i].poster_path}`"
+                            :alt="upcomingMovies[+index + i].title"
+                            height="100%"
+                            class="imgJanela hoverIMG"
+                          ></v-img>
+                          <div class="position-absolute top-50 start-50 translate-middle w-100">
+                          <div  v-show="visibleIndex === index">
+                            <p style="color:white;">{{ upcomingMovies[+index + i].title }}</p>
+                            <div>
+                              <i class="fa-solid fa-star mb-3" style="color: #ff6a38;"><span>   {{ upcomingMovies[+index + i].vote_avg }}</span></i>
+                            </div>
+                          </div>
+                          <div>
+                            <router-link :to="{name:'upcomingmovie', params:{id:upcomingMovies[+index + i].id}}">
+                              <v-btn outlined large elevation="7" color="#FFFFFF">
+                                <span class="me-1">상세보기</span>
+                                <v-icon small>fas fa-search</v-icon>
+                              </v-btn>
+                            </router-link>
+                          </div>
+                        </div>
+                        </div>
+                      </v-row>
+                    </v-sheet>
+                  </v-col>
+                </template>
+              </v-row>
+            </v-carousel-item>
+          </template>
+        </v-carousel>
+      </v-main>
+    </v-app>
   </div>
 </template>
 
@@ -64,29 +63,59 @@ import { mapGetters } from 'vuex';
 
 export default {
   name : 'UpComingMovieList',
-  data(){
-    return{
-      model:null,
-    }
-  },
-  components :{
+  data() {
+    return {
+      isVisible :false,
+      visibleIndex: null,
+    };
   },
   computed:{
     ...mapGetters(['upcomingMovies']),
+    upcomingMoviesPosetURL(){
+      return this.upcomingMovies
+    },
+    columns() {
+      if (this.$vuetify.breakpoint.xl) {
+        return 6;
+      }
+
+      if (this.$vuetify.breakpoint.lg) {
+        return 4;
+      }
+
+      if (this.$vuetify.breakpoint.md) {
+        return 3;
+      }
+
+      return 1;
+    }
   },
   created(){
-    this.getUpComingMovie()
+    this.getupcomingMovies()
   },
   methods:{
-    getUpComingMovie(){
+    getupcomingMovies(){
       this.$store.dispatch('getUpComingMovies')
-    }
+    },
+    showInfo(index) {
+      this.visibleIndex = index;
+    },
+    hideInfo() {
+      this.visibleIndex = null;
+    },
   }
-}
+
+};
 </script>
 
-<style>
-.upcomingMoviePoster{
+<style scoped>
+.app-container {
+  height: 600px; /* 원하는 높이로 설정 */
+}
+.main-container {
+  height: 100%; /* 부모 요소인 v-app의 높이에 맞춤 */
+}
+.upcomingMoviesPoster{
   width: 300px;
   height: 450px;
   padding: 10px;
