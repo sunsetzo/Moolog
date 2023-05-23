@@ -3,20 +3,62 @@ from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer, PasswordChangeSerializer
 
+from movies.models import NowPlayingMovie, UpcomingMovie, PopularMovie
+from movies.models import NowPlayingReview, UpcomingReview, PopularReview
+
 User = get_user_model()
 
-# class UserSerializer(serializers.ModelSerializer):
+# 영화
+class LikeNowPlayingMovieSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = NowPlayingMovie
+        fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
 
-    # followings = serializers.SerializerMethodField()
 
-    # def get_followings(self, obj):
-    #     # 현재 유저의 followings를 가져와서 유저의 pk값만 리스트로 반환
-    #     return UserSerializer(obj.followings.all(), many=True).data
+class LikeUpcomingMovieSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = UpcomingMovie
+        fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
 
-    # class Meta:
-    #     model = User
-    #     fields = ('id', )
 
+class LikePopularMovieSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = PopularMovie
+        fields = '__all__'
+        read_only_fields = ('genres', 'like_users',)
+
+
+# 리뷰
+class NowPlayingMovieReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = NowPlayingReview
+        fields = '__all__'
+        read_only_fields = ('user', 'movie',)
+        
+
+class UpcomingMovieReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UpcomingReview
+        fields = '__all__'
+        read_only_fields = ('user', 'movie',)
+
+
+class PopularMovieReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PopularReview
+        fields = '__all__'
+        read_only_fields = ('user', 'movie',)
+
+
+# django-rest-auth
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(max_length=20)
 
@@ -40,16 +82,28 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
     nickname = serializers.CharField(max_length=20, required=False)
     user_image = serializers.ImageField(required=False)
 
-
+    # 팔로우
     followings = serializers.ManyRelatedField(child_relation=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()), source='followings.all', read_only=True)
     followings_count = serializers.IntegerField(source='followings.count', read_only=True)
     followers = serializers.ManyRelatedField(child_relation=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()), source='followers.all', read_only=True)
-    followers_count = serializers.IntegerField(source='followers.count', read_only=True)    
+    followers_count = serializers.IntegerField(source='followers.count', read_only=True)
+
+    # 해당 유저가 팔로우한 유저가 쓴 리뷰
+    nowplayingreview_set = NowPlayingMovieReviewSerializer(many=True, read_only=True)
+    upcomingreview_set = UpcomingMovieReviewSerializer(many=True, read_only=True)
+    popularreview_set = PopularMovieReviewSerializer(many=True, read_only=True)
+
+
+    # 해당 유저가 좋아요한 영화
+    like_now_playing_movies = LikeNowPlayingMovieSerializer(many=True, read_only=True)
+    like_upcoming_movies = LikeUpcomingMovieSerializer(many=True, read_only=True)
+    like_popular_movies = LikePopularMovieSerializer(many=True, read_only=True)
+
 
 
     class Meta(UserDetailsSerializer.Meta):
         model = User
-        fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image', 'followings', 'followings_count', 'followers', 'followers_count')
+        fields = UserDetailsSerializer.Meta.fields + ('nickname', 'user_image', 'followings', 'followings_count', 'followers', 'followers_count', 'like_now_playing_movies', 'like_upcoming_movies', 'like_popular_movies', 'like_popular_movies', 'nowplayingreview_set', 'upcomingreview_set', 'popularreview_set')
         read_only_fields = ('username','email')
 
     def get_cleaned_data(self):

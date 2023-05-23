@@ -28,6 +28,11 @@ class NowPlayingMovieReviewSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user', 'movie',)
 
+    def validate_rate(self, value):
+        if value % 0.5 != 0:
+            raise serializers.ValidationError('0.5 단위로 별점을 입력해주세요.')
+        return value
+
 
 class NowPlayingMovieSerializer(serializers.ModelSerializer):
     nowplayingreview_set = NowPlayingMovieReviewSerializer(many=True, read_only=True)
@@ -57,6 +62,12 @@ class UpcomingMovieReviewSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('user', 'movie',)
 
+    
+    def validate_rate(self, value):
+        if value % 0.5 != 0:
+            raise serializers.ValidationError('0.5 단위로 별점을 입력해주세요.')
+        return value
+
 
 class UpcomingMovieSerializer(serializers.ModelSerializer):
     upcomingreview_set = UpcomingMovieReviewSerializer(many=True, read_only=True)
@@ -84,6 +95,11 @@ class PopularMovieReviewSerializer(serializers.ModelSerializer):
         model = PopularReview
         fields = '__all__'
         read_only_fields = ('user', 'movie',)
+
+    def validate_rate(self, value):
+        if value % 0.5 != 0:
+            raise serializers.ValidationError('0.5 단위로 별점을 입력해주세요.')
+        return value
 
 
 class PopularMovieSerializer(serializers.ModelSerializer):

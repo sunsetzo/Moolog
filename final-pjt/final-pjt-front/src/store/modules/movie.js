@@ -79,7 +79,7 @@ const movie = {
     },
     getMovies(context){
         axios({
-            menubar:'get',
+            method:'get',
             url:`${API_URL}/api/v1/popular_movies/`
         })
         .then((res)=>{
