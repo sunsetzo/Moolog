@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div>
+    <div class="d-flex align-items-center justify-content-center">
       <input
-        type="text" v-model="input" 
+        type="text" v-model="input" style="color:white; height:32px;"
+        class="me-2 ps-2"
         placeholder="영화 제목을 입력하세요."
         @keyup.enter="searchMovie">
-      <v-btn outlined @click="searchMovie">검색</v-btn>
+      <v-btn outlined style="color:white;" @click="searchMovie">검색</v-btn>
     </div>
     <p style="font-size: 30px; font-weight: 500;">{{ searchInput }} 검색한 결과</p>
     <p>{{ searchResultCount }} 개의 검색 결과가 있습니다.</p>
@@ -45,25 +46,35 @@ export default {
   methods : {
     searchMovie(){
       this.result = []
-
-      this.Movies.forEach((movie) => {
-        if (movie.title.includes(this.input)) {
-          this.result.push(movie)
-        }
-      })
-
-      this.searchResult = [] // 기존 검색 결과 초기화
-
-      this.result.forEach((movie) => {
-        this.searchResult.push(movie)
-      })
-
-      this.$router.replace({
-        name:'search', 
-        query: { searchResult: this.result, searchInput: this.input,
-      }})
       
-      this.input = ''
+      if (this.input.trim()) {
+        
+        if (this.input === this.searchInput) {
+          alert("현재 검색된 결과입니다.")
+          return
+        }
+        this.Movies.forEach((movie) => {
+          if (movie.title.includes(this.input)) {
+            this.result.push(movie)
+          }
+        })
+
+        this.searchResult = [] // 기존 검색 결과 초기화
+  
+        this.result.forEach((movie) => {
+          this.searchResult.push(movie)
+        })
+  
+        this.$router.replace({
+          name:'search', 
+          query: { searchResult: this.result, searchInput: this.input,
+        }})
+        
+        this.input = ''
+      } else {
+        alert('검색어를 입력해주세요.')
+      }
+
     }
   },
 }
