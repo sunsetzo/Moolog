@@ -1,10 +1,10 @@
 <template>
   <div>
-    <input 
+    <input
     type="text" v-model="searchInput" 
-    placeholder="영화 제목을 입력하세요"
-    @input="searchMovie">
-    <button @click="searchMovie">검색</button>
+    placeholder="영화 제목을 입력하세요."
+    @keyup.enter="searchMovie">
+    <v-btn outlined @click="searchMovie">검색</v-btn>
   </div>
 </template>
 
@@ -19,20 +19,18 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['allMovies' ])
+    ...mapGetters(['Movies' ])
   },
   methods:{
     searchMovie(){
-      if (this.allMovies.includes(this.searchInput)){
-        this.searchResult.push(this.allMovies)
-      }
-      this.$router.push({name:'search'})
+      this.Movies.forEach((movie) => {
+        if (movie.title.includes(this.searchInput)) {
+          this.searchResult.push(movie)
+        }
+      })
+
+      this.$router.push({name:'search'}, this.searchResult)
       
-      // this.allMovies.forEach((el)=>{
-      //   if (el.includes(this.searchInput)){
-      //     this.searchResult.push(el)
-      //   }
-      // })
     }
   }
 }

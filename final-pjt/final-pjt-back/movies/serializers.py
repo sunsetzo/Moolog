@@ -36,11 +36,12 @@ class NowPlayingMovieReviewSerializer(serializers.ModelSerializer):
 
 class NowPlayingMovieSerializer(serializers.ModelSerializer):
     nowplayingreview_set = NowPlayingMovieReviewSerializer(many=True, read_only=True)
+    genres = GenreListSerializer(many=True, read_only=True)
 
     class Meta:
         model = NowPlayingMovie
         fields = '__all__'
-        read_only_fields = ('genres', 'like_users',)
+        read_only_fields = ('genres', 'like_users', 'genres',)
 
 
 
@@ -71,11 +72,12 @@ class UpcomingMovieReviewSerializer(serializers.ModelSerializer):
 
 class UpcomingMovieSerializer(serializers.ModelSerializer):
     upcomingreview_set = UpcomingMovieReviewSerializer(many=True, read_only=True)
+    genres = GenreListSerializer(many=True, read_only=True)
 
     class Meta:
         model = UpcomingMovie
         fields = '__all__'
-        read_only_fields = ('genres', 'like_users',)
+        read_only_fields = ('genres', 'like_users', 'genres',)
 
 
 # 인기 영화
@@ -104,8 +106,9 @@ class PopularMovieReviewSerializer(serializers.ModelSerializer):
 
 class PopularMovieSerializer(serializers.ModelSerializer):
     popularreview_set = PopularMovieReviewSerializer(many=True, read_only=True)
+    genres = GenreListSerializer(many=True, read_only=True)
 
     class Meta:
         model = PopularMovie
         fields = '__all__'
-        read_only_fields = ('genres', 'like_users',)
+        read_only_fields = ('genres', 'like_users', 'genres',)
