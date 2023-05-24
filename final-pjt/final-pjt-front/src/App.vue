@@ -73,7 +73,6 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn" data-bs-dismiss="modal" @click="logIn" style="background-color: #7E57C2; color:white;">LogIn</button>
-                  <!-- <button data-bs-dismiss="modal" @click="signUp">SignUp</button> -->
                 </div>
               </div>
             </div>

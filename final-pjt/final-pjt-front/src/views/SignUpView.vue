@@ -119,9 +119,7 @@ export default {
   color: white;
 }
 
-.margin-custom {
-  margin: 6px 0px 0px 18px;
-}
+
 
 .form-box {
   height: 420px;
