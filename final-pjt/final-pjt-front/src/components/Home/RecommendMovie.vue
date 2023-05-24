@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="recommendMovie">
+    <div v-show="isRecommend">
         <v-app  class="app-container">
             <v-main class="main-container">
                 <v-carousel
@@ -40,8 +40,8 @@
             </v-main>
         </v-app>
     </div>
-    <div v-else>
-        <p>추천 영화를 받을라믄 영화 좋아요를 눌러주세용~</p>
+    <div v-show="!isRecommend">
+        <h3>추천 영화를 받을라믄 영화 좋아요를 눌러주세용~</h3>
     </div>
   </div>
 </template>
@@ -57,7 +57,8 @@ export default {
     data(){
         return{
             recommendMovies : [],
-            recommendMovie : []
+            recommendMovie : [],
+            isRecommend : false,
         }
     },
     created(){
@@ -72,6 +73,10 @@ export default {
         .then((res)=>{
             this.recommendMovies = res.data
             this.recommendMovie = sampleSize(this.recommendMovies, 12)
+            if (this.recommendMovies.length > 0){
+                this.isRecommend = true
+                console.log(this.isRecommend)
+            }
         })
         .catch(()=>{
             console.log('recommend err')
@@ -84,7 +89,7 @@ export default {
             }
 
             if (this.$vuetify.breakpoint.lg) {
-                return 4;
+                return 6;
             }
 
             if (this.$vuetify.breakpoint.md) {

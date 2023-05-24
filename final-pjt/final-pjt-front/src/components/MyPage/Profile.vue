@@ -7,15 +7,11 @@
       <h1>{{ nickname }}</h1>
       <p>팔로워 수: {{ followersCount }}</p>
       <p>팔로잉 수: {{ followingsCount }}</p>
-      <button v-if="!isCurrentUser" @click="toggleFollow">
-        {{ isFollowing ? '언팔로우' : '팔로우' }}
-      </button>
     </div>  
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import {mapGetters} from 'vuex'
 
 export default {
@@ -42,38 +38,6 @@ export default {
     }
   },
   methods: {
-    toggleFollow() {
-      // 팔로우/언팔로우 버튼 클릭 시 실행되는 함수
-      if (this.isFollowing) {
-        this.unfollowUser();
-      } else {
-        this.followUser();
-      }
-    },
-    followUser() {
-      // 팔로우 API 요청
-      axios.post('http://127.0.0.1:8000/accounts/follow/:userpk', { userpk: this.userinfo.pk })
-        .then((res) => {
-          console.log(res)
-          this.isFollowing = true;
-          this.followersCount++;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    unfollowUser() {
-      // 언팔로우 API 요청
-      axios.post('http://127.0.0.1:8000/accounts/follow/:userpk', { userpk: this.userinfo.pk })
-        .then(response => {
-          console.log(response)
-          this.isFollowing = false;
-          this.followersCount--;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
   }
 }
 </script>
