@@ -1,12 +1,14 @@
 <template>
   <div>
-    <button @click="loginWithGoogle">구글 소셜 로그인</button>
+    <img src="@/assets/btn_google_signin_light_normal_web.png" alt="google"
+    style="width:200px; height:50px" class="mb-1" @click="loginWithGoogle">
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 export default {
+  name: 'GoogleLogin',
   methods: {
     loginWithGoogle: function() {
       const clientID = '128235535893-g8hd1udjg84ra9i1ke4aov3hhjkhv1g2.apps.googleusercontent.com';
@@ -60,3 +62,11 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
+=======
+<style scoped>
+img {
+  cursor: pointer;
+}
+</style>
+>>>>>>> f3242b8073271f6577f24747711142bab784712c

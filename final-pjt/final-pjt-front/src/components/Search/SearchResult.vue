@@ -2,11 +2,15 @@
   <div>
     <div class="d-flex align-items-center justify-content-center">
       <input
-        type="text" v-model="input" style="color:white; height:32px;"
-        class="me-2 ps-2"
+        type="text" v-model="input"
+        class="me-1"
+        style="color: white; width:500px; height: 50px; border: 1px solid white;
+              border-radius: 30px; margin-top:10px; margin-bottom: 10px;  text-align: center;"
         placeholder="영화 제목을 입력하세요."
         @keyup.enter="searchMovie">
-      <v-btn outlined style="color:white;" @click="searchMovie">검색</v-btn>
+      <v-btn color="white" dark style="background-color:black;" @click="searchMovie">
+        <v-icon dark>fas fa-search</v-icon>
+      </v-btn>
     </div>
     <p style="font-size: 30px; font-weight: 500; color:whitesmoke;">{{ searchInput }} 검색한 결과</p>
     <p style="color:whitesmoke;">{{ searchResultCount }} 개의 검색 결과가 있습니다.</p>

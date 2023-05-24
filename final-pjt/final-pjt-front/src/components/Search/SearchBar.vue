@@ -1,11 +1,15 @@
 <template>
   <div class="d-flex align-items-center justify-content-center">
     <input
-    type="text" v-model="searchInput" style="color:white; height:32px;"
-    class="me-2 ps-2"
+    type="text" v-model="searchInput"
+    class="me-1"
+    style="color: white; width:500px; height: 50px; border: 1px solid white;
+          border-radius: 30px; margin-top:10px; margin-bottom: 10px; text-align: center;"
     placeholder="영화 제목을 입력하세요."
     @keyup.enter="searchMovie">
-    <v-btn outlined style="color:white;" @click="searchMovie">검색</v-btn>
+    <v-btn color="white search-icon" dark style="background-color:black;" @click="searchMovie">
+      <v-icon dark>fas fa-search</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -45,6 +49,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.search-icon {
+  
+}
 </style>
