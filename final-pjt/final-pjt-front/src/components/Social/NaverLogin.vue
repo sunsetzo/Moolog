@@ -1,6 +1,6 @@
 <template>
     <div>
-      <button @click="handleNaverLogin">네이버 소셜 로그인</button>
+      <img src="@/assets/btnG_완성형.png" alt="naver" style="width:194px; height:47px;" class="mb-2" @click="handleNaverLogin">
     </div>
   </template>
   
@@ -49,3 +49,8 @@
   };
   </script>
   
+  <style scoped>
+  img {
+    cursor: pointer;
+  }
+  </style>

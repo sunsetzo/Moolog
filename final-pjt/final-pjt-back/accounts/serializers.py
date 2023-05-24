@@ -111,6 +111,7 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
         data['nickname'] = self.validated_data.get('nickname','')
         data['user_image'] = self.validated_data.get('user_image', '')
         return data
+    
 
     def validate_nickname(self, value):
         user_model = self.Meta.model

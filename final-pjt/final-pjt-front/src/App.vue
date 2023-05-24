@@ -16,7 +16,7 @@
         <!-- 버튼 눌렀을 때
         1) 로그인이 안되어 있으면 로그인 모달창
         2) 로그인이 되어 있으면 프로필 수정 및 로그아웃 버튼-->
-        <div v-show="isLogin" class="d-flex align-items-center me-1">
+        <div v-if="isLogin" class="d-flex align-items-center me-1">
           <div class="main-profile">
             <img v-if="profileImg" :src="profileImg" alt="profileImg" class="main-profile-img">
             <img v-else src="@/assets/user_img.png" alt="profileImg" class="main-profile-img">
@@ -26,65 +26,81 @@
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
             <ul class="dropdown-menu">
-              <li><router-link :to="{name : 'mypage' }" class="dropdown-item">My Page</router-link></li>
-              <li><router-link :to="{name : 'profileedit'}" class="dropdown-item">ProfileEdit</router-link></li>
-              <li><a class="dropdown-item" @click="logOut">Logout</a></li>
+              <li><router-link :to="{name : 'mypage' }" class="dropdown-item"> MY PROFILE</router-link></li>
+              <li><router-link :to="{name : 'profileedit'}" class="dropdown-item">USER EDIT</router-link></li>
+              <li><a class="dropdown-item" @click="logOut">LOGOUT</a></li>
             </ul>
           </div>
         </div>
-          <div v-show="!isLogin">
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal">임시 프로필 이미지 버튼</button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div v-if="!isLogin">
+          <!-- 로그인 모달 -->
+          <button data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:whitesmoke;" class="mt-4 me-3">Login</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header" style="background-color: #7E57C2; color:white; height:3.5rem">
+                  <v-toolbar-title class="modal-title" style="font-size:large; font-weight:bold">Login</v-toolbar-title>
+                  <button type="button" class="btn btn-custom-close" data-bs-dismiss="modal" aria-label="Close" style="position: relative; left: 12px;"><i class="fa-solid fa-xmark fa-lg"></i></button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <div class="d-flex ms-1">
+                      <label for="username" class="form-label">ID</label>
+                    </div>
+                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" v-model="username">
                   </div>
-                  <div class="modal-body">
-                    <label for="username"> ID : </label>
-                    <input type="text" id="username" v-model="username">
-                    <br>
-                    <label for="loginPW">PW : </label>
-                    <input type="password" id="password" v-model="password" @keyup.enter="logIn">
-                    <br>
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</button>
-                    
+                  <div class="mb-3">
+                    <div class="d-flex ms-1">
+                      <label for="loginPW" class="form-label">PASSWORD</label>
+                    </div>
+                    <input type="password" class="form-control" id="loginPW" aria-describedby="emailHelp" v-model="password" @keyup.enter="logIn">
                   </div>
-                  <!-- 계정 연동 로그인 -->
-                  <div>
-                    <GoogleLogin/>
-                    <NaverLogin/>
+                  <div class="d-flex justify-content-end">
+                    <a href="#" data-bs-toggle="tooltip" title="비밀번호를 찾는 창을 띄워줍니다.">
+                      <button class="btn fs-6" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" style="background-color: white; color:#757575;">Forgot Password?</button>
+                    </a>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="logIn">LogIn</button>
-                    <button data-bs-dismiss="modal" @click="signUp">SignUp</button>
+                  <div class="d-flex justify-content-end">
+                    <a href="#" data-bs-toggle="tooltip" title="회원 가입 페이지로 이동합니다.">
+                      <button class="btn fs-6" data-bs-dismiss="modal" style="color:#7E57C2;" @click="signUp">Are you not a member yet?</button>
+                    </a>
                   </div>
                 </div>
-              </div>
-            </div>
-            <!-- 비밀번호 찾기 모달 창 -->
-            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel2">비밀번호 찾기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <p>이메일을 입력해주세요</p>
-                    <input type="email" v-model="email">
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-dismiss="modal" @click="resetPW(email)">완료</button>
-                    <button class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
-                  </div>
+                <!-- 계정 연동 로그인 -->
+                <div>
+                  <GoogleLogin/>
+                  <NaverLogin/>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn" data-bs-dismiss="modal" @click="logIn" style="background-color: #7E57C2; color:white;">LogIn</button>
+                  <!-- <button data-bs-dismiss="modal" @click="signUp">SignUp</button> -->
                 </div>
               </div>
             </div>
           </div>
-          
+          <!-- 비밀번호 찾기 모달 창 -->
+          <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header" style="background-color: #7E57C2; color:white; height:3.5rem">
+                  <v-toolbar-title class="modal-title" style="font-size:large; font-weight:bold">Find Password</v-toolbar-title>
+                  <button type="button" class="btn btn-custom-close" data-bs-dismiss="modal" aria-label="Close" style="position: relative; left: 12px;"><i class="fa-solid fa-xmark fa-lg"></i></button>
+                </div>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <div class="d-flex ms-1">
+                      <label for="email" class="form-label">Please enter your email</label>
+                    </div>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" v-model="email">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn" data-bs-dismiss="modal" @click="resetPW(email)" style="background-color: #7E57C2; color:white;">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
     <router-view @editProfile="getNickname"/>
@@ -168,7 +184,7 @@ export default {
     },
     resetPW(email){
       this.$store.dispatch('resetPW', email)
-      email=''
+      this.email=''
     },
     getUser(){
       this.$store.dispatch('getUser')
@@ -274,5 +290,16 @@ header {
   width: auto; /* 기본값이 가로 전체를 차지하므로 auto로 설정합니다 */
   margin-top: 5px;
   padding: 0.25rem 0.25rem; /* 버튼 내부의 패딩 값을 조정하여 크기를 조절합니다 */
+}
+
+.btn-custom-close {
+  color: white !important;
+  font-size: 1rem;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn-custom-close:hover {
+  opacity: 0.8;
 }
 </style>

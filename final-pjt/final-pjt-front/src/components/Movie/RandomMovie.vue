@@ -64,7 +64,7 @@ export default {
 }
 
 .btn-custom-close:hover {
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 .movie-poster-container {
