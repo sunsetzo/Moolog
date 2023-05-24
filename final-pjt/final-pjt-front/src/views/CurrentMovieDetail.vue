@@ -1,5 +1,8 @@
 <template>
-<div>
+<div class="currentMovieDetail">
+    <div >
+        <img :src="`https://www.themoviedb.org/t/p/original/${movie?.backdrop_path}`" alt="배경 이미지" class="backgroundimg">
+    </div>
     <h1>{{movie?.title}}</h1>
     <!-- 영화 포스터 및 타이틀 -->
     <div>
@@ -144,6 +147,15 @@ methods:{
 }
 </script>
 
-<style>
-
+<style scoped>
+.currentMovieDetail{
+    color: white;
+    margin-top: 50px;
+}
+.backgroundimg{
+    width: 100%;
+    height: 40%;
+    opacity: 0.3;
+    filter: blur(3px);
+}
 </style>

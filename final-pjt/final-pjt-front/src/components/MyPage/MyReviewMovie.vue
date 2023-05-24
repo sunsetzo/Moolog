@@ -116,7 +116,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .app-container {
   height: 600px; /* 원하는 높이로 설정 */
 }

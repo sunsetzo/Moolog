@@ -84,9 +84,9 @@ export default {
     console.log(this.myLoveMovie)
   },
 }
-</script>
+</script >
 
-<style>
+<style scoped>
 .app-container {
   height: 600px; /* 원하는 높이로 설정 */
 }

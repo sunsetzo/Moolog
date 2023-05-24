@@ -85,6 +85,6 @@ import { mapGetters } from 'vuex'
   }
   </script>
   
-  <style>
+  <style scoped>
   
   </style>

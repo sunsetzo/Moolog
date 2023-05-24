@@ -62,11 +62,8 @@ export default {
 }
 </script>
 
-<<<<<<< HEAD
-=======
 <style scoped>
 img {
   cursor: pointer;
 }
 </style>
->>>>>>> f3242b8073271f6577f24747711142bab784712c
