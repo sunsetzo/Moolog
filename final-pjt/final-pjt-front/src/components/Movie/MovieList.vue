@@ -2,10 +2,9 @@
   <div>
     <div class="row row-cols-1 row-cols-md-6 g-2 mx-auto">
         <MovieListItem v-for="(movie) in movies" :key="movie.id" :movie="movie"
-        class="col"
-        />
-        <infinite-loading v-if="hasMore" @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
+        class="col"/>
     </div>  
+      <infinite-loading v-if="hasMore" @infinite="infiniteHandler" spinner="waveDots"></infinite-loading>
   </div>
 </template>
 
