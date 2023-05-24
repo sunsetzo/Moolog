@@ -8,8 +8,8 @@
         @keyup.enter="searchMovie">
       <v-btn outlined style="color:white;" @click="searchMovie">검색</v-btn>
     </div>
-    <p style="font-size: 30px; font-weight: 500;">{{ searchInput }} 검색한 결과</p>
-    <p>{{ searchResultCount }} 개의 검색 결과가 있습니다.</p>
+    <p style="font-size: 30px; font-weight: 500; color:whitesmoke;">{{ searchInput }} 검색한 결과</p>
+    <p style="color:whitesmoke;">{{ searchResultCount }} 개의 검색 결과가 있습니다.</p>
     <div class="row row-cols-1 row-cols-md-6 g-2 mx-auto" :class="{ 'justify-content-center': searchResult.length < 6 }">
       <SearchResultItem v-for="movie in searchResult" :key="movie.id" :movie="movie"/>
     </div>

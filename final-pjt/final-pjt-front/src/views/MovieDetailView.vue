@@ -143,6 +143,8 @@ methods:{
 }
 </script>
 
-<style>
-
+<style scoped>
+div {
+    color:whitesmoke;
+}
 </style>

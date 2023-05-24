@@ -1,27 +1,29 @@
 <template>
   <div id="app">
     <header>
-      <div>
-        <RandomMovie/>
+      <div class="d-flex">
+        <div>
+          <img class="logo" src="@/assets/moolog_nobg.png" alt="logo" data-bs-toggle="modal" data-bs-target="#randomMovieModal">
+          <RandomMovie/>
+        </div>
+        <nav>
+          <router-link class="router-link-a" :to="{name : 'home'}">Home</router-link>
+          <router-link class="router-link-a" :to="{name : 'movie'}">Movie</router-link>
+          <router-link class="router-link-a" :to="{name : 'game'}">Game</router-link>
+        </nav>
       </div>
-      <nav>
-        <router-link :to="{name : 'home'}">Home</router-link> |
-        <router-link :to="{name : 'movie'}">Movie</router-link> |
-        <router-link :to="{name : 'game'}">Game</router-link>
-      </nav>
       <div>
         <!-- 버튼 눌렀을 때
         1) 로그인이 안되어 있으면 로그인 모달창
         2) 로그인이 되어 있으면 프로필 수정 및 로그아웃 버튼-->
-        <div v-show="isLogin" >
+        <div v-show="isLogin" class="d-flex align-items-center me-1">
           <div class="main-profile">
             <img v-if="profileImg" :src="profileImg" alt="profileImg" class="main-profile-img">
             <img v-else src="@/assets/user_img.png" alt="profileImg" class="main-profile-img">
-            <p>반갑슈 {{ nickname }}</p>
+            <p class="me-1 nickname-p">{{ nickname }}님 <i class="fa-regular fa-face-laugh-squint" style="color: #ffffff;"></i></p>
           </div>
           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              임시 프로필 이미지
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
             <ul class="dropdown-menu">
               <li><router-link :to="{name : 'mypage' }" class="dropdown-item">My Page</router-link></li>
@@ -81,7 +83,8 @@
                 </div>
               </div>
             </div>
-          </div>    
+          </div>
+          
       </div>
     </header>
     <router-view @editProfile="getNickname"/>
@@ -109,7 +112,6 @@ export default {
       loginuser : '',
       email : null,
       // google-login
-      openModal : false,
       showRandomMovie : this.$store.state.movie.showRandomMovie,
     }
   },
@@ -206,8 +208,10 @@ body, html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: white;
   background-color: black;
+
+  width: 100%;
+  height: 100%;
 }
 header{
   display: flex;
@@ -215,12 +219,14 @@ header{
 }
 
 nav {
-  padding: 30px;
+  padding-top: 18px;
+  padding-left: 15px;
 }
 
 nav a {
-  font-weight: bold;
-  color: rgba(255, 255, 255, 0.74);
+  text-decoration-line: none;
+  font-weight: 500;
+  color: #ffffff;
 }
 
 nav a.router-link-exact-active {
@@ -234,14 +240,39 @@ li a {
 }
 .main-profile{
   display: flex;
+  margin-top: 5px;
 }
 .main-profile-img{
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 30%;
 }
 .logo{
-  margin: 30px;
-  width: 250px;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 200px;
+}
+
+.router-link-a {
+  font-size: 20px;
+  margin-right: 15px;
+  padding: 0;
+}
+
+header {
+  height: 60px;
+}
+
+.nickname-p {
+  color:whitesmoke;
+  margin-top: 14px;
+}
+
+.dropdown .btn {
+  color: whitesmoke;
+  width: auto; /* 기본값이 가로 전체를 차지하므로 auto로 설정합니다 */
+  margin-top: 5px;
+  padding: 0.25rem 0.25rem; /* 버튼 내부의 패딩 값을 조정하여 크기를 조절합니다 */
 }
 </style>

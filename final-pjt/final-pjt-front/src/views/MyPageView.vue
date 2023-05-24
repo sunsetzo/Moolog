@@ -25,6 +25,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+  color: whitesmoke;
+}
 </style>
