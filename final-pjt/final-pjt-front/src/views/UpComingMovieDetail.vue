@@ -89,6 +89,7 @@ export default {
                 }
                 else{
                     this.isMyLike = true
+                    this.isLike = true
                 }
             })
             .catch((err)=>{
