@@ -21,7 +21,7 @@
   
         // Django 서버에 사용자 정보 전송
         axios
-          .get('https://nid.naver.com/oauth2.0/token', {
+          .post('https://nid.naver.com/oauth2.0/token', {
             params: {
               code: code,
               state: state
