@@ -1,7 +1,6 @@
 <template>
   <div>
-    내가 좋아요한 영화
-    <v-app class="app-container">
+    <p style="margin-top:30px">내가 좋아요한 영화</p>
       <v-main class="main-container">
         <v-carousel
         class="carousel-container"
@@ -27,7 +26,6 @@
                             class="imgJanela hoverIMG"
                           ></v-img>
                           <div class="image-title">
-                            {{ myLoveMovie[+index + i].title }}
                           </div>
                         </div>
                       </v-row>
@@ -39,7 +37,6 @@
           </template>
         </v-carousel>
       </v-main>
-    </v-app>
   </div>
 </template>
 
@@ -56,14 +53,14 @@ export default {
       }
 
       if (this.$vuetify.breakpoint.lg) {
-        return 4;
+        return 6;
       }
 
       if (this.$vuetify.breakpoint.md) {
         return 3;
       }
 
-      return 1;
+      return 3;
     }
   },
   data(){
@@ -81,14 +78,14 @@ export default {
     this.userInfo.like_popular_movies.forEach((el)=>{
       this.myLoveMovie.push(el)
     })
-    console.log(this.myLoveMovie)
+    // console.log(this.myLoveMovie)
   },
 }
 </script >
 
 <style scoped>
 .app-container {
-  height: 600px; /* 원하는 높이로 설정 */
+  height: 400px; /* 원하는 높이로 설정 */
 }
 .main-container {
   height: 100%; /* 부모 요소인 v-app의 높이에 맞춤 */
@@ -101,4 +98,5 @@ export default {
   width: 300px;
   height: 400px;
 }
+
 </style>

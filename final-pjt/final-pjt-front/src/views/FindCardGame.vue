@@ -39,14 +39,14 @@ var openedCtn = 0    // 맞춘 카드 갯수
 // 카드 배치
 function setTable() {
     cards = [
-        require('../../assets/find_same_picture/bull.png'), require('../../assets/find_same_picture/bull.png'),
-        require('../../assets/find_same_picture/chick.png'), require('../../assets/find_same_picture/chick.png'),
-        require('../../assets/find_same_picture/crab.png'), require('../../assets/find_same_picture/crab.png'),
-        require('../../assets/find_same_picture/fox.png'), require('../../assets/find_same_picture/fox.png'),
-        require('../../assets/find_same_picture/hedgehog.png'), require('../../assets/find_same_picture/hedgehog.png'),
-        require('../../assets/find_same_picture/hippopotamus.png'), require('../../assets/find_same_picture/hippopotamus.png'),
-        require('../../assets/find_same_picture/koala.png'), require('../../assets/find_same_picture/koala.png'),
-        require('../../assets/find_same_picture/lemur.png'), require('../../assets/find_same_picture/lemur.png')
+        require('@/assets/find_same_picture/Anya.png'), require('@/assets/find_same_picture/Anya.png'),
+        require('@/assets/find_same_picture/Tom.png'), require('@/assets/find_same_picture/Tom.png'),
+        require('@/assets/find_same_picture/Elizabeth.png'), require('@/assets/find_same_picture/Elizabeth.png'),
+        require('@/assets/find_same_picture/chris.png'), require('@/assets/find_same_picture/chris.png'),
+        require('@/assets/find_same_picture/stanley.png'), require('@/assets/find_same_picture/stanley.png'),
+        require('@/assets/find_same_picture/jenna.png'), require('@/assets/find_same_picture/jenna.png'),
+        require('@/assets/find_same_picture/keanu.png'), require('@/assets/find_same_picture/keanu.png'),
+        require('@/assets/find_same_picture/zendaya.png'), require('@/assets/find_same_picture/zendaya.png')
     ]
     var cardTableCode = '<tr>'
     for(var i=0; i<16; i++){

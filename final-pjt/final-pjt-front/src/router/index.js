@@ -10,6 +10,7 @@ import MovieDetailView from '../views/MovieDetailView.vue'
 import CurrentMovieDetail from '../views/CurrentMovieDetail.vue'
 import UpComingMovieDetail from '../views/UpComingMovieDetail.vue'
 import UserPageView from '../views/UserPageView.vue'
+import FindCardGame from '../views/FindCardGame'
 
 import SearchResult from '../components/Search/SearchResult.vue'
 import SearchResultRe from '../components/Search/SearchResultRe.vue'
@@ -31,6 +32,11 @@ const routes = [
     path: '/game',
     name: 'game',
     component: GameView
+  },
+  {
+    path: '/findcardgame',
+    name: 'findcardgame',
+    component: FindCardGame
   },
   {
     path: '/mypage',

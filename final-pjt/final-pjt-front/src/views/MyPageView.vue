@@ -1,9 +1,11 @@
 <template>
   <div>
     <ProFile/>
-    <MyLoveMovie/>
-    <MyReviewMovie/>
-    <FollowingMovieReview/>
+    <v-app>
+      <MyLoveMovie/>
+      <MyReviewMovie/>
+      <FollowingMovieReview/>
+    </v-app>
   </div>
 </template>
 

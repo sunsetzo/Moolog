@@ -28,35 +28,52 @@
                     </div>
                 <br>
                 <div class="movie-overview">
-                    <p style="text-align:left">{{ movie?.overview }}</p>
+                    <p style="text-align:left;">{{ movie?.overview }}</p>
                 </div>
             </div>
         </div>
         <!-- 영화 예고편 영상 -->
-    <iframe :src="videoURL" frameborder="0" width="100%" height="800px" class="YTB"></iframe>
+    <div style="width : 90%; height: 800px; margin:auto">
+        <iframe :src="videoURL" frameborder="0" width="100%" height="100%" class="YTB"></iframe>
+    </div>
     <!-- 영화 리뷰 -->
-    <div>
+    <div style="margin-top:150px; background-color: #212121; border-radius: 5px; width:90%; margin:0px auto 60px;
+    box-shadow: 1px 1px 10px #616161, -1px -1px 10px #616161;">
+        <!-- 채팅방 상단 -->
+        <div style="width:90%; height:100px; margin:auto; display: flex; justify-content: space-between; align-items: center;">
+            <div><i class="fa-solid fa-chevron-left fa-2xl" style="color: #EEEEEE;"></i></div>
+            <p style="text-align: center; font-size:28px; font-weight: 700; margin-top: 27px;">{{ movie?.title }}</p>
+            <div><i class="fa-solid fa-bars fa-2xl" style="color: #EEEEEE;"></i></div>
+        </div>
+        <!-- 공지사항 -->
+        <div style="height:80px; width:99%; margin:0px auto 20px; background-color: #EEEEEE; display: flex; justify-content: space-between; align-items: center;
+        padding-bottom:10px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;">
+            <div style="margin-left:45px"><i class="fa-solid fa-bullhorn fa-2xl" style="color: #2d394d;"></i></div>
+            <p style="color:black;font-size:20px; margin-top:28px">환영합니다. '{{ movie.title }}' 리뷰 채팅방입니다.</p>
+            <div style="margin-right:30px"><i class="fa-solid fa-chevron-down fa-2xl" style="color: #363f4f;"></i></div>
+        </div>
+        <!-- 리뷰 -->
         <div class="review-box">
             <div v-for="(review, idx) in reviews" :key="idx">
-                <div class="star-ratings review-rate">
-                    <div 
-                    class="star-ratings-fill space-x-2 text-lg"
-                    :style="{ width: `${review.rate * 20}%` }"
-                    >
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                    </div>
-                    <div class="star-ratings-base space-x-2 text-lg">
-                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                    </div>
-                </div>
+                
                 <div class="review-content">
+                    <!-- 유저 프로필 -->
                     <div class="review-user">
-                        <router-link :to="{name:'userprofile', params:{userid:review.user}} "><i class="fa-solid fa-circle-user fa-2xl" style="color: #00a1b0"></i>
-                            <br><br>
-                        <span>{{ review.nickname }}</span></router-link>
+                        <router-link :to="{name:'userprofile', params:{userid:review.user}} "><i class="fa-solid fa-user-astronaut fa-2xl" style="color: #8edae2;"></i>
+                            <div style="height: 15px;"></div>
+                        <span style="font-weight: 700;">{{ review.nickname }}</span></router-link>
                     </div>
-                    
-                    <div class="speech-bubble">{{ review.content }}</div>
+                    <!-- 리뷰 말풍선 -->
+                    <div class="speech-bubble">
+                        <!-- 별점 -->
+                        <div class='RatingStar'>
+                            <div class='RatingScore'>
+                                <div class='outer-star'><div class='inner-star' :style="{ width: `${review.rate * 20}%` }"></div></div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <p style="text-align:left; margin-left:13px; margin-top:10px; font-weight: 700;">{{ review.content }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,7 +88,8 @@ import CurrentMovieReview from '../components/Movie/CurrentMovieReview.vue'
 import axios from 'axios'
 
 const API_URL = 'http://127.0.0.1:8000/api/v1'
-const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
+// const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
+const YOUTUBE_KEY = 'AIzaSyArMcs8a_vXyN3DIt4Qn4gC0dQlE1y9noc'
 const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
 
 export default {
@@ -189,9 +207,8 @@ methods:{
     height: 350px;
     display: flex;
     justify-content: space-around;
-    position: static;
-    top: 90%;
-    transform: translateY(-50%);
+    position: absolute;
+    transform: translateY(-145%);
 }
 .info-img{
     padding: 5px;
@@ -247,13 +264,15 @@ methods:{
      color:#4DD0E1;
 }
 .YTB{
-    margin-top: 0px;
+    margin-top: 80px;
 }
 .speech-bubble {
     width: 400px;
 	position: relative;
-	background:#00a1b0;
+	background:#8edae2;
 	border-radius: .4em;
+    margin-bottom: 30px;
+    box-shadow: 1px 1px 10px #3f3f3f, -1px -1px 10px #3f3f3f;
 }
 .speech-bubble:after {
 	content: '';
@@ -263,21 +282,21 @@ methods:{
 	width: 0;
 	height: 0;
 	border: 0.875em solid transparent;
-	border-right-color: #00a1b0;
+	border-right-color: #8edae2;
 	border-left: 0;
 	border-top: 0;
 	margin-top: -0.437em;
 	margin-left: -0.875em;
 }
 .review-box{
-    width: 80%;
+    width: 90%;
     margin-right: auto;
     margin-left: auto;
 }
 .review-rate{
-    margin-top: 30px;
-    margin-left : 370px;
-    margin-bottom: 5px;
+    margin-top: 3px;
+    margin-left: 13px;
+    margin-bottom: 1px;
 }
 .review-user{
     align-self: auto;
@@ -292,30 +311,23 @@ div a {
   text-decoration-line: none;
   color: white;
 }
-.star-ratings {
-  color: #aaa9a9; 
-  position: relative;
-  unicode-bidi: bidi-override;
-  width: max-content;
-  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1.3px;
-  -webkit-text-stroke-color: #2b2a29;
+.divider{
+    height: 1.3px;
+    border: none;
+    background-color: white;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 2px;
 }
- 
-.star-ratings-fill {
-  color: #fff58c;
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  -webkit-text-fill-color: gold;
+.RatingStar{
+    display: flex;
+    margin-left: 13px;
+    margin-top: 5px;
+    margin-bottom: 3px;
 }
- 
-.star-ratings-base {
-  z-index: 0;
-  padding: 0;
-}
+
+.inner-star::before{color: #ffba24;}
+.outer-star {position: relative;display: inline-block;color: #7c7c7c;}
+.inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: hidden;white-space: nowrap;}
+.outer-star::before, .inner-star::before {content: '\f005 \f005 \f005 \f005 \f005';font-family: 'Font Awesome 5 free';font-weight: 900;}
 </style>

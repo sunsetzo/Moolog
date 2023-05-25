@@ -9,7 +9,8 @@
         <nav>
           <router-link class="router-link-a" :to="{name : 'home'}">Home</router-link>
           <router-link class="router-link-a" :to="{name : 'movie'}">Movie</router-link>
-          <router-link class="router-link-a" :to="{name : 'game'}">Game</router-link>
+          <router-link class="router-link-a" :to="{name : 'game'}">Puzzle</router-link>
+          <router-link class="router-link-a" :to="{name : 'findcardgame'}">Card Game</router-link>
         </nav>
       </div>
       <div>
