@@ -39,14 +39,14 @@ var openedCtn = 0    // 맞춘 카드 갯수
 // 카드 배치
 function setTable() {
     cards = [
-        require('@/assets/find_same_picture/Anya.png'), require('@/assets/find_same_picture/Anya.png'),
-        require('@/assets/find_same_picture/Tom.png'), require('@/assets/find_same_picture/Tom.png'),
-        require('@/assets/find_same_picture/Elizabeth.png'), require('@/assets/find_same_picture/Elizabeth.png'),
-        require('@/assets/find_same_picture/chris.png'), require('@/assets/find_same_picture/chris.png'),
-        require('@/assets/find_same_picture/stanley.png'), require('@/assets/find_same_picture/stanley.png'),
-        require('@/assets/find_same_picture/jenna.png'), require('@/assets/find_same_picture/jenna.png'),
-        require('@/assets/find_same_picture/keanu.png'), require('@/assets/find_same_picture/keanu.png'),
-        require('@/assets/find_same_picture/zendaya.png'), require('@/assets/find_same_picture/zendaya.png')
+        require('../assets/find_same_picture/Anya.jpg'), require('../assets/find_same_picture/Anya.jpg'),
+        require('../assets/find_same_picture/Tom.jpg'), require('../assets/find_same_picture/Tom.jpg'),
+        require('../assets/find_same_picture/Elizabeth.jpg'), require('../assets/find_same_picture/Elizabeth.jpg'),
+        require('../assets/find_same_picture/chris.jpg'), require('../assets/find_same_picture/chris.jpg'),
+        require('../assets/find_same_picture/stanley.jpg'), require('../assets/find_same_picture/stanley.jpg'),
+        require('../assets/find_same_picture/jenna.jpg'), require('../assets/find_same_picture/jenna.jpg'),
+        require('../assets/find_same_picture/keanu.jpg'), require('../assets/find_same_picture/keanu.jpg'),
+        require('../assets/find_same_picture/zendaya.jpg'), require('../assets/find_same_picture/zendaya.jpg')
     ]
     var cardTableCode = '<tr>'
     for(var i=0; i<16; i++){
