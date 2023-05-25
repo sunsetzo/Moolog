@@ -40,7 +40,7 @@
     <div style="margin-top:150px; background-color: #212121; border-radius: 5px; width:90%; margin:0px auto 60px;
     box-shadow: 1px 1px 10px #616161, -1px -1px 10px #616161;">
         <!-- 채팅방 상단 -->
-        <div style="width:90%; height:100px; margin:auto; display: flex; justify-content: space-between; align-items: center;">
+        <div style="width:90%; height:100px; margin:150px auto 0px; display: flex; justify-content: space-between; align-items: center;">
             <div><i class="fa-solid fa-chevron-left fa-2xl" style="color: #EEEEEE;"></i></div>
             <p style="text-align: center; font-size:28px; font-weight: 700; margin-top: 27px;">{{ movie?.title }}</p>
             <div><i class="fa-solid fa-bars fa-2xl" style="color: #EEEEEE;"></i></div>
@@ -87,8 +87,8 @@
 import MovieReview from '@/components/Movie/MovieReview.vue'
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000/api/v1'
-const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
-// const YOUTUBE_KEY = 'AIzaSyArMcs8a_vXyN3DIt4Qn4gC0dQlE1y9noc'
+// const YOUTUBE_KEY = 'AIzaSyBkdQF46yaw0HH0kpENBBanwFI1y1mGnhI'
+const YOUTUBE_KEY = 'AIzaSyArMcs8a_vXyN3DIt4Qn4gC0dQlE1y9noc'
 const YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
 
 export default {
@@ -122,7 +122,7 @@ methods:{
             this.movie = res.data
             this.reviews = res.data.nowplayingreview_set
             this.title = res.data.title + 'trailer'
-            // this.getMovieTrailer() //유튜브
+            this.getMovieTrailer() //유튜브
             this.likeUserLength = res.data.like_users.length
             this.genres = res.data.genres
             const user_pk = this.$store.state.user.pk
