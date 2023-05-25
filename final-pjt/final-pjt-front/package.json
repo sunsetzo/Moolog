@@ -10,12 +10,16 @@
   "dependencies": {
     "@mdi/font": "^7.2.96",
     "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "lodash": "^4.17.21",
     "node-sass": "^8.0.0",
-    "vue": "^2.6.14",
+    "vue": "^2.7.14",
     "vue-infinite-loading": "^2.4.5",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.5.1",
+    "vue-slick-carousel": "^1.0.6",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"

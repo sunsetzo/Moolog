@@ -8,7 +8,8 @@
     <div class="row profile-container">
       <div class="col-4 col-4-container">
         <div class="user-image">
-          <img :src="image" alt="profile imge" class="mb-3">
+          <img :src="image" alt="profile imge" class="mb-3" v-if="isImage">
+          <img src="@/assets/user_img.png" alt="default image" class="mb-3" v-if="!isImage">
           <h5 class="fw-bold">{{ fixedNickname }}</h5>
           <p style="font-size:13px; height:15px;">{{ email }}</p>
           <div class="filebox">
@@ -106,6 +107,7 @@ export default {
   name : 'ProfileEditView',
   data(){
     return{
+      isImage: false,
       fixedNickname: null,
       nickname:null,
       email: null,
@@ -127,6 +129,7 @@ export default {
     const oldProfileImg = this.$store.state.user.user_image
     if (oldProfileImg){
       this.image = oldProfileImg
+      this.isImage = true
     }else{
       this.image = 'http://127.0.0.1:8000/media/profile_images/user_img.png'
     }

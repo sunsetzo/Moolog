@@ -6,8 +6,10 @@
       <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
     </div>
     <br>
-    <CurrentMovieList/>
-    <UpComingMovieList/>
+    <v-app class="app-container">
+        <CurrentMovieList/>
+        <UpComingMovieList/>
+    </v-app>
     <div>영화 추천??</div>
   </div>
 </template>

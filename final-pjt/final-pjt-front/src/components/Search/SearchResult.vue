@@ -12,8 +12,14 @@
         <v-icon dark>fas fa-search</v-icon>
       </v-btn>
     </div>
+    <div class="astrodivider">
+      <div class="astrodividermask"></div>
+    </div>
     <p style="font-size: 30px; font-weight: 500; color:whitesmoke;">{{ searchInput }} 검색한 결과</p>
     <p style="color:whitesmoke;">{{ searchResultCount }} 개의 검색 결과가 있습니다.</p>
+    <div class="astrodivider">
+      <div class="astrodividermask"></div>
+    </div>
     <div class="row row-cols-1 row-cols-md-6 g-2 mx-auto" :class="{ 'justify-content-center': searchResult.length < 6 }">
       <SearchResultItem v-for="movie in searchResult" :key="movie.id" :movie="movie"/>
     </div>
@@ -91,5 +97,36 @@ export default {
 
 .justify-content-center {
   justify-content: center;
+}
+
+.astrodivider {
+  margin:auto;
+  width:100%; 
+  max-width: 100%;
+  position:relative;
+}
+
+.astrodividermask { 
+    overflow:hidden; height:20px; 
+}
+
+.astrodividermask:after { 
+      content:''; 
+      display:block; margin:-25px auto 0;
+      width:100%; height:25px;  
+        border-radius:125px / 12px;
+       box-shadow:0 0 8px #4DD0E1;
+}
+
+.astrodivider i {
+    position:absolute;
+    top:4px; bottom:4px;
+    left:4px; right:4px;
+    border-radius:100%;
+    border:1px dashed #68beaa;
+    text-align:center;
+    line-height:40px;
+    font-style:normal;
+     color:#4DD0E1;
 }
 </style>

@@ -1,9 +1,11 @@
 <template>
   <div>
     <SearchBar/>
-    <RecommendMovie/>
-    <CurrentMovieList/>
-    <UpComingMovieList/>
+    <v-app class="app-container">
+      <RecommendMovie/>
+      <CurrentMovieList/>
+      <UpComingMovieList/>
+    </v-app>
   </div>
 </template>
 
