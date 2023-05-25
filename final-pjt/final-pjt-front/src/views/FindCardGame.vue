@@ -1,19 +1,48 @@
 <template>
-    <div id="table">
+    <div id="table" style="color:whitesmoke;">
         <router-view>
         </router-view>
         <div id="same_game">
-            <h1>같은 그림 찾기 게임</h1>
             <div id="infoDiv">
-                <button v-on:click="gameStart">게임시작</button>
-                <span>점수 : <span id='score'>0</span></span>
-                <div id='info'> 게임시작 버튼을 눌러주세요<br></div>
+                <v-btn v-on:click="gameStart" style="color:white; background-color: #4DD0E1;"
+                @mouseover="hover = true"
+                @mouseleave="hover = false"
+                :style="{ backgroundColor: hover ? 'white' : '#4DD0E1', color: hover ? '#4DD0E1' : 'white' }">게임시작</v-btn>
+                <span>Score : <span id='score'>0</span></span>
             </div>
             <div id="gameDiv">
                 <div id='countDown'>ready</div>
                 <table id="cardTable"></table>
             </div>
         </div>
+        <v-app id="inspire" style="background-color:black;">
+            <v-dialog
+                v-model="dialog"
+                transition="dialog-top-transition"
+                max-width="600"
+            >
+                <template v-slot:default="dialog">
+                <v-card>
+                    <v-toolbar
+                    color="#4DD0E1"
+                    dark
+                    class="text-h6"
+                    >같은 그림 찾기 게임 설명</v-toolbar>
+                    <v-card-text>
+                    <div class="pt-15" style="font-size:15px;">5초 동안 전체 카드를 보여줍니다.
+                        <p>마우스를 이용해 같은 카드를 맞춰주세요.<br>게임 시작 버튼을 눌러 시작하세요!</p>
+                    </div>
+                    </v-card-text>
+                    <v-card-actions class="justify-end">
+                    <v-btn
+                        text
+                        @click="dialog.value = false"
+                    >OK</v-btn>
+                    </v-card-actions>
+                    </v-card>
+                </template>
+            </v-dialog>
+        </v-app>
     </div>
 </template>
 
@@ -72,7 +101,6 @@ function hiddenCards(){
 function startGame() {
     var sec = 5
 
-    $('#info').hide()   // 안내 문구 가리기
     scoreInit()    // 점수 초기화
     setTable()  //카드 배치
     $('#cardTable td span').hide()
@@ -157,6 +185,12 @@ function scoreMinus(){
 }
 
 export default {
+  data() {
+    return {
+        dialog: true,
+        hover: false,
+    }
+  },
   methods: {
     gameStart: function () {
       console.log('게임시작')
