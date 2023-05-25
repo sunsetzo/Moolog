@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h2 style="color:whitesmoke">상영 예정작</h2>
+    <div class="d-flex ms-2 text-color section-title" style="color: #4DD0E1;">
+            <span>Up</span>
+            <span>coming</span>
+            <span class="ms-1">Mo</span>
+            <span>vies</span>
+    </div>
     <v-main class="main-container">
       <v-carousel
         class="carousel-container"
@@ -85,7 +90,7 @@ export default {
         return 3;
       }
 
-      return 1;
+      return 3;
     }
   },
   created(){
@@ -131,5 +136,42 @@ export default {
 .hoverIMG:hover{
   -webkit-filter: grayscale(100%) blur(3px);
   filter: grayscale(100%) blur(3px);
+}
+
+/* Fonts at: https://www.google.com/fonts */
+@import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One');
+
+.section-title {
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 35px;
+  position: relative;
+  letter-spacing: -2px;
+  color: #4DD0E1;
+}
+
+.section-title span:before {
+  content: '';
+  height: 1px;
+  position: absolute;
+  bottom: 7px;
+  background: #4DD0E1;
+  width: 0%;
+  animation: voila 1s forwards linear;
+}
+
+.section-title span:nth-child(2) {
+  opacity: .75;
+}
+
+.section-title span:nth-child(3) {
+  opacity: .5;
+}
+
+.section-title span:nth-child(4) {
+  opacity: .25;
+}
+
+@keyframes voila {
+  to { width: 100%; }
 }
 </style>

@@ -1,16 +1,20 @@
 <template>
   <div>
-    <div>
-      <span>마 로그인 해주소!</span>
-      <br>
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+    <div class="container">
+      <div class="content">
+        <img src="@/assets/logout.jpg" alt="logout">
+      </div>
+      <div>
+        <button class="btn login" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:whitesmoke">지금
+          <img class="logo logo-login" src="@/assets/moolog_nobg.png" alt="logo">
+        즐겨보세요!
+        </button>
+      </div>  
     </div>
-    <br>
     <v-app class="app-container">
         <CurrentMovieList/>
         <UpComingMovieList/>
     </v-app>
-    <div>영화 추천??</div>
   </div>
 </template>
 
@@ -29,4 +33,34 @@ export default {
 
 <style scoped>
 
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 65%;
+  height: 15%;
+  transform: translate(-50%, -50%);
+  font-size: 25px;
+  text-align: center;
+  /* width: 300px; */
+}
+
+.container {
+  height: 450px;
+  width: 75%;
+  margin: 10px auto;
+  position: relative;
+}
+
+.content img {
+  width: 100%;
+  opacity: 0.25;
+  filter: blur(2px);
+  vertical-align: middle;
+}
+
+.logo-login {
+  position: relative;
+  bottom: 6px;
+}
 </style>

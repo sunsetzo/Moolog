@@ -57,7 +57,7 @@
                   <div class="mb-3">
                     <div class="d-flex ms-1">
                       <a href="#" data-bs-toggle="tooltip" title="기존 비밀번호를 입력하세요.">
-                        <label for="oldpassword" class="form-label">PASSWORD</label>
+                        <label for="oldpassword" class="form-label" style="color:black;">PASSWORD</label>
                       </a>
                     </div>
                     <input type="password" class="form-control" id="oldpassword" aria-describedby="emailHelp" v-model="oldpassword">
@@ -65,7 +65,7 @@
                   <div class="mb-3">
                     <div class="d-flex ms-1">
                       <a href="#" data-bs-toggle="tooltip" title="새로운 비밀번호를 입력하세요.">
-                        <label for="newpassword1" class="form-label">NEW PASSWORD</label>
+                        <label for="newpassword1" class="form-label" style="color:black;">NEW PASSWORD</label>
                       </a>
                     </div>
                     <input type="password" class="form-control" id="newpassword1" aria-describedby="emailHelp" v-model="newpassword1">
@@ -73,7 +73,7 @@
                   <div class="mb-3">
                     <div class="d-flex ms-1">
                       <a href="#" data-bs-toggle="tooltip" title="새로운 비밀번호를 한 번 더 입력하세요.">
-                        <label for="newpassword2" class="form-label">NEW PASSWORD CONFIRMATION</label>
+                        <label for="newpassword2" class="form-label" style="color:black;">NEW PASSWORD CONFIRMATION</label>
                       </a>
                     </div>
                     <input type="password" class="form-control" id="newpassword2" aria-describedby="emailHelp" v-model="newpassword2" @keyup="checkPW">
