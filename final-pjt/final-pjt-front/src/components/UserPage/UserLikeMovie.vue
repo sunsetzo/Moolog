@@ -1,7 +1,6 @@
 <template>
     <div>
-        <p>유저가 좋아요 한 영화</p>
-        <v-app class="app-container">
+        <h3 style="margin-top:30px; color:white">User Like Movies</h3>
             <v-main class="main-container">
                 <v-carousel
                 class="carousel-container"
@@ -15,6 +14,7 @@
                         <template v-for="(n, i) in columns">
                         <v-col :key="i">
                             <v-sheet
+                            style="width: 300px;"
                             v-if="(+index + i) < userLikeMovies.length"
                             >
                             <v-row class="fill-height" align="center" justify="center">
@@ -24,10 +24,8 @@
                                     :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${userLikeMovies[+index + i].poster_path}`"
                                     :alt="userLikeMovies[+index + i].title"
                                     height="100%" 
-                                    class="imgJanela hoverIMG"
                                 ></v-img>
                                 <div class="image-title">
-                                    {{ userLikeMovies[+index + i].title }}
                                 </div>
                                 </div>
                             </v-row>
@@ -39,7 +37,6 @@
                 </template>
                 </v-carousel>
             </v-main>
-            </v-app>
     </div>
   </template>
   
@@ -86,5 +83,18 @@ import { mapGetters } from 'vuex'
   </script>
   
   <style scoped>
-  
+  .app-container {
+  height: 400px; /* 원하는 높이로 설정 */
+}
+.main-container {
+  height: 100%; /* 부모 요소인 v-app의 높이에 맞춤 */
+}
+.carousel-container{
+  width: 2000px;
+  margin: auto;
+}
+.info-sheet {
+  width: 300px;
+  height: 400px;
+}
   </style>

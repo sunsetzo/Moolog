@@ -1,17 +1,26 @@
 <template>
     <div class="profile">
-        <div>
-            <!-- <img :src="userImg" alt="profile img"> -->
-        </div>
-        <div>
-            <h1>{{ userprofile.nickname }}</h1>
-            <p>팔로워 수: {{ followersCount }}</p>
-            <p>팔로잉 수: {{ userprofile.followings_count }}</p>
-            <button v-if="!isCurrentUser" @click="toggleFollow">
-                {{ isFollowing ? '언팔로우' : '팔로우' }}
-            </button>
-        </div>  
+    <div>
+      <img :src="`http://127.0.0.1:8000${userImg}`" alt="profile img" style="border-radius: 50%; margin-top: 30px; ">
+      <br><br>
+      <h1>{{ userprofile.nickname }}</h1>
+      <v-btn
+      elevation="2" color="#7c5091"
+      style="color:white; width:200px; font-weight: bold; margin-bottom: 20px;"
+      v-if="!isCurrentUser" @click="toggleFollow">
+        {{ isFollowing ? '언팔로우' : '팔로우' }}
+      </v-btn>
     </div>
+    <div class="user-info">
+      <div class="information"><i class="fa-solid fa-film fa-2xl icon" style="color: #7c5091;"></i><span>{{ likeMovie }}</span><p>영화</p></div>
+      <div class="horizion"></div>
+      <div class="information"><i class="fa-solid fa-comments fa-2xl icon" style="color: #7c5091;"></i><span>{{ comment }}</span><p>리뷰</p></div>
+      <div class="horizion"></div>
+      <div class="information"><i class="fa-solid fa-user-group fa-2xl icon" style="color: #7c5091;"></i><span>{{ followersCount }}</span><p>팔로워</p></div>
+      <div class="horizion"></div>
+      <div class="information"><i class="fa-solid fa-user-plus fa-2xl icon" style="color: #7c5091;"></i><span>{{  userprofile.followings_count }}</span><p>팔로잉</p></div>
+    </div>  
+  </div>
 </template>
 
 <script>
@@ -26,7 +35,9 @@ export default {
         return {
             isCurrentUser : false,  
             isFollowing : false,
-            followersCount : 0
+            followersCount : 0,
+            likeMovie:0,
+            comment:0
         };
     },
     created(){
@@ -40,14 +51,26 @@ export default {
             this.isCurrentUser = true
         }
 
-        console.log(this.isCurrentUser)
+        // console.log(this.isCurrentUser)
 
         if (this.userprofile.followers.includes(this.userInfo.pk)){
             this.isFollowing = true
         }
+
+        this.likeMovie = (this.userprofile.like_now_playing_movies.length
+            + this.userprofile.like_upcoming_movies.length + this.userprofile.like_popular_movies.length)
+        
+            this.comment = (this.userprofile.nowplayingreview_set.length
+            + this.userprofile.upcomingreview_set.length + this.userprofile.popularreview_set.length) 
     },
     computed:{
         ...mapGetters(['userprofile', 'userInfo']),
+        userImg(){
+            if (!this.userprofile.user_image){
+                return '/media/profile_images/user_img.png'
+            }
+            return this.userprofile.user_image
+        }
     },
     methods:{
         getUserProfile(){
@@ -120,5 +143,35 @@ export default {
 </script>
 
 <style scoped>
-
+.profile{
+  background: linear-gradient( rgb(0, 0, 0), #513581, rgb(0, 0, 0));
+  box-shadow:-2 1 5px #7E57C2;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 10px;
+  color: white;
+}
+img {
+  width: 300px;
+  height: 300px;
+}
+.user-info{
+  display: flex;
+  justify-content: space-evenly;
+}
+.information{
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+}
+.horizion{
+  width: 2px;
+  height: 130px;
+  background-color: #2f2148;
+  box-shadow:0 0 8px #7E57C2;
+  margin-top: 10px;
+}.icon{
+  margin-bottom: 17px;
+}
 </style>

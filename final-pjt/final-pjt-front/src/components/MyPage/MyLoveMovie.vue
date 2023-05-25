@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p style="margin-top:30px">내가 좋아요한 영화</p>
+    <h3 style="margin-top:30px">Like Movies</h3>
       <v-main class="main-container">
         <v-carousel
         class="carousel-container"
@@ -14,6 +14,7 @@
                 <template v-for="(n, i) in columns">
                   <v-col :key="i">
                     <v-sheet
+                      style="width: 300px;"
                       v-if="(+index + i) < myLoveMovie.length"
                     >
                       <v-row class="fill-height" align="center" justify="center">
@@ -23,7 +24,6 @@
                             :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${myLoveMovie[+index + i].poster_path}`"
                             :alt="myLoveMovie[+index + i].title"
                             height="100%" 
-                            class="imgJanela hoverIMG"
                           ></v-img>
                           <div class="image-title">
                           </div>

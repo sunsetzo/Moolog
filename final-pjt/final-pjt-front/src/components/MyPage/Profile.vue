@@ -4,7 +4,12 @@
       <img :src="userImg" alt="profile img" style="border-radius: 50%; margin-top: 30px; ">
       <br><br>
       <h1>{{ nickname }}</h1>
-      
+      <router-link :to="{name:'profileedit'}">
+        <v-btn
+        elevation="2" color="#7c5091"
+        style="color:white; width:200px; font-weight: bold; margin-bottom: 20px;">
+        프로필 수정</v-btn>
+      </router-link>
     </div>
     <div class="user-info">
       <div class="information"><i class="fa-solid fa-film fa-2xl icon" style="color: #7c5091;"></i><span>{{ likeMovie }}</span><p>영화</p></div>

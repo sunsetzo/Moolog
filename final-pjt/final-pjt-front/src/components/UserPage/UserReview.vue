@@ -1,10 +1,10 @@
 <template>
   <div>
-    유저가 리뷰단 영화
-    <v-app  class="app-container">
+    <h3 style="margin-top:25px; color:white">User Reviews</h3>
       <v-main class="main-container">
         <v-carousel
         class="carousel-container"
+        style="height:400px"
         hide-delimiters>
           <template v-for="(item, index) in UserReviewMovies">
             <v-carousel-item
@@ -16,18 +16,29 @@
                   <v-col :key="i">
                     <v-sheet
                       v-if="(+index + i) < UserReviewMovies.length"
+                      style="height: 330px; width: 300px; border-radius: 5px; background-color: #212121;"
                     >
                       <v-row class="fill-height" align="center" justify="center">
                         
-                        <div class="image-container">
-                          <div class="image-title">
-                            {{ UserReviewMovies[+index + i].movieTitle }}
-                            <br>
-                            {{ UserReviewMovies[+index + i].reviewContent }}
-                            <br>
-                            {{ UserReviewMovies[+index + i].reviewDate }}
-                          </div>
+                        <div class="image-container" style="color: white;">
+                        <v-img
+                        :src="`https://www.themoviedb.org/t/p/w533_and_h300_bestv2${UserReviewMovies[+index + i].poster}`"
+                        :alt="UserReviewMovies[+index + i].title" 
+                        style="width:300px; height: 130px; border-top-left-radius: 5px; border-top-right-radius: 5px;"
+                        ></v-img>
+                        <div class="image-title" style="background-color: #212121; margin: 0px 0px 30px;">
+                          <p style="font-size: large; font-weight: bold; padding-bottom: 10px; padding-right: 8px; margin:0px;
+                          text-align: right;">{{ UserReviewMovies[+index + i].movieTitle }}</p>
+                          <p style="text-align: left; margin-left: 10px;"><i class="fa-solid fa-quote-left fa-lg" style="color:#7E57C2;"></i></p>
+                          <p style="font-size: medium;">"{{ UserReviewMovies[+index + i].reviewContent }}"</p>
+                          <p style="text-align: right; margin-right: 10px;"><i class="fa-solid fa-quote-right fa-lg" style="color:#7E57C2;"></i></p>
+                          <p>{{ UserReviewMovies[+index + i].reviewDate.slice(2,4)+'.'
+                          +UserReviewMovies[+index + i].reviewDate.slice(5,7) + '.' 
+                          +UserReviewMovies[+index + i].reviewDate.slice(8,10)
+                          + ' ' + UserReviewMovies[+index + i].reviewDate.slice(11,13) + ':'
+                          + UserReviewMovies[+index + i].reviewDate.slice(14,16)}}</p>
                         </div>
+                      </div>
                       </v-row>
                     </v-sheet>
                   </v-col>
@@ -37,7 +48,6 @@
           </template>
         </v-carousel>
       </v-main>
-    </v-app>
   </div>
 </template>
 
@@ -82,7 +92,8 @@ export default {
       })
       .then((res)=>{
         const movieTitle = res.data.title
-        this.UserReviewMovies.push({reviewContent, movieTitle, reviewDate})
+        const poster = res.data.backdrop_path
+        this.UserReviewMovies.push({reviewContent, movieTitle, reviewDate, poster})
       })
     })
     this.userprofile.upcomingreview_set.forEach((el)=>{
@@ -95,7 +106,8 @@ export default {
       })
       .then((res)=>{
         const movieTitle = res.data.title
-        this.UserReviewMovies.push({reviewContent, movieTitle, reviewDate})
+        const poster = res.data.backdrop_path
+        this.UserReviewMovies.push({reviewContent, movieTitle, reviewDate, poster})
       })
     })
     this.userprofile.popularreview_set.forEach((el)=>{
@@ -108,7 +120,8 @@ export default {
       })
       .then((res)=>{
         const movieTitle = res.data.title
-        this.UserReviewMovies.push({reviewContent, movieTitle, reviewDate})
+        const poster = res.data.backdrop_path
+        this.UserReviewMovies.push({reviewContent, movieTitle, reviewDate, poster})
       })
     })
     // console.log(this.myReviewMovie)

@@ -1,13 +1,14 @@
 <template>
   <div>
-    내가 리뷰단 영화
+    <h3 style="margin-top:25px">My Reviews</h3>
     <v-main class="main-container">
       <v-carousel
       class="carousel-container"
+      style="height:400px"
       hide-delimiters>
         <template v-for="(item, index) in myReviewMovie">
           <v-carousel-item
-            v-if="(index + 1) % columns === 2 || columns === 2"
+            v-if="(index + 1) % columns === 1 || columns === 1"
             :key="index"
           >
             <v-row class="flex-nowrap" style="height: 100%">
@@ -26,7 +27,7 @@
                         style="width:300px; height: 130px; border-top-left-radius: 5px; border-top-right-radius: 5px;"
                         ></v-img>
                         <div class="image-title" style="background-color: #212121; margin: 0px 0px 30px;">
-                          <p style="font-size: large; padding-bottom: 10px; padding-right: 8px; margin:0px;
+                          <p style="font-size: large; font-weight: bold; padding-bottom: 10px; padding-right: 8px; margin:0px;
                           text-align: right;">{{ myReviewMovie[+index + i].movieTitle }}</p>
                           <p style="text-align: left; margin-left: 10px;"><i class="fa-solid fa-quote-left fa-lg" style="color:#7E57C2;"></i></p>
                           <p style="font-size: medium;">"{{ myReviewMovie[+index + i].reviewContent }}"</p>
@@ -65,7 +66,7 @@ export default {
       }
 
       if (this.$vuetify.breakpoint.lg) {
-        return 4;
+        return 6;
       }
 
       if (this.$vuetify.breakpoint.md) {

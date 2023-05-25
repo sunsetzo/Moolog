@@ -1,9 +1,11 @@
 <template>
   <div>
-      유저 페이지
+     <h2 style="color:white; margin-top:30px">User Profile</h2>
       <UserProfile/>
+    <v-app>
       <UserLikeMovie/>
       <UserReview/>
+    </v-app>
   </div>
 </template>
 
